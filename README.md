@@ -1,1 +1,1 @@
-Hi
+Hi my name is Paul and I'm new here.  I'm just playing and learning as I go.  Right now I am working on builing this portfolio website using a free bootstrap theme.  Eventually I would like to build out a website completely from scratch - but that will have to wait for another day.
