@@ -1,1 +1,1 @@
-Hi my name is Paul and I'm new here.  I'm just playing and learning as I go.  Right now I am working on builing this portfolio website using a free bootstrap theme.  Eventually I would like to build out a website completely from scratch - but that will have to wait for another day.
+Paul Sultana is a singer-songwriter and worship leader who loves writing and recording songs to share with whoever will listen.  Take a look at the links below and enjoy!
