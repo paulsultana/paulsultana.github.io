@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,40 +7,99 @@
         <meta name="description" content="Paul Sultana is a singer-songwriter and worship leader" />
         <meta name="author" content="Paul Sultana" />
         <title>Paul Sultana</title>
-        <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+        <style>
+            .poppins-black {
+                font-family: "Poppins", sans-serif;
+                font-weight: 900;
+                font-style: normal;
+            }
+            h1 {font-family: "Poppins", sans-serif;
+                font-weight: 900;
+                font-style: normal;
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0;
+                padding: 0;
+                line-height: 80%;
+            }
+            p {font-family: "Poppins", sans-serif;
+                font-weight: 900;
+                font-style: normal;
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0;
+                padding: 10px 0px 0px 0px;
+                line-height: 120%;
+            }
+            a {font-family: "Poppins", sans-serif;
+                font-weight: 900;
+                font-style: normal;
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0;
+                line-height: 140%;
+            }
+            div {
+                padding: 15px 0px 0px 0px;
+            }
+            ul {
+                list-style-type: none;
+                padding-left: 0;
+            }
+            a:link {
+                text-decoration: none;
+            }
+            a:visited {
+                color: white;
+            }
+            a:hover {
+                color: white;
+            }
+
+            /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+            @media screen and (min-width: 601px) {
+            h1{
+                font-size: 7rem;
+            }
+            p {
+                font-size: 2rem;
+                max-width: 50%;
+            }
+            a {
+                font-size: 3rem;
+            }
+            }
+
+            /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+            @media screen and (max-width: 600px) {
+            h1{
+                font-size: 5rem;
+            }
+            p {
+                font-size: 1.5rem;
+                max-width: 100%;
+            }
+            a {
+                font-size: 2.5rem;
+            }
+            }
+        </style>
     </head>
     <body style="background: url(assets/mywebsitebg.png) no-repeat center center fixed; background-size: cover;">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">Paul Sultana</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="https://www.youtube.com/c/paulsultana" target="_blank">YouTube</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://paulsultana.bandcamp.com/" target="_blank">Bandcamp</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://open.spotify.com/artist/5GAgdgSHE75RFikYDDpH6T" target="_blank">Spotify</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www.instagram.com/thepaulsultana" target="_blank">Instagram</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/PaulSultanaMusic/" target="_blank">Facebook</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page Content-->
-        <section>
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-lg-6">
-                        <!--<h1 class="mt-5">Paul Sultana</h1>-->
-                        <p style="margin-top: 3rem; font-size: 1.2rem">Paul Sultana is a singer-songwriter and worship leader who loves writing and recording songs to share with whoever will listen.  Take a look at the links below and enjoy!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <h1>PAUL SULTANA</h1><p> is a singer-songwriter and worship leader who loves writing and recording songs to share with whoever will listen.  Take a look at the links below and enjoy!</p>
+
+        <div>
+            <ul>
+                <li><a href="https://www.youtube.com/c/paulsultana" target="_blank">YouTube</a></li>
+                <li><a href="https://paulsultana.bandcamp.com/" target="_blank">Bandcamp</a>></li>
+                <li><a href="https://open.spotify.com/artist/5GAgdgSHE75RFikYDDpH6T" target="_blank">Spotify</a></li>
+                <li><a href="https://www.instagram.com/thepaulsultana" target="_blank">Instagram</a></li>
+                <li><a href="https://www.facebook.com/PaulSultanaMusic/" target="_blank">Facebook</a></li>
+            </ul>
+        </div>
+
     </body>
 </html>
