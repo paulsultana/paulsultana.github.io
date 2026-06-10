@@ -18,117 +18,198 @@
           <!-- optional ones -->
         <meta property="og:type" content="website">
         <link rel="canonical" href="https://paulsultana.com">
-
-        <!--
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        -->
        
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=poppins:900" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=calistoga:400" rel="stylesheet" />
         
         <style>
+
             *{box-sizing: border-box;}
-            .poppins-black {
-                font-family: "Poppins", sans-serif;
-                font-weight: 900;
-                font-style: normal;
-            }
+
             body {
-                background: url(assets/mywebsitebg.png) no-repeat center center fixed; background-size: cover;
-                height: 100%;
-            }
-            h1 {font-family: "Poppins", sans-serif;
-                font-weight: 900;
-                font-style: normal;
-                color: rgba(255, 255, 255, 0.8);
                 margin: 0;
-                padding: 0;
-                line-height: 80%;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
+                background: url("assets/mywebsitebg.png") no-repeat center center fixed;
+                background-size: cover;
+                color: white;
             }
-            p {font-family: "Poppins", sans-serif;
-                font-weight: 900;
-                font-style: normal;
-                color: rgba(255, 255, 255, 0.8);
+
+            /* HERO */
+
+            .hero {
+                min-height: 15vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-family: "Calistoga", serif;
+                font-size: clamp(3rem, 3vw, 4rem);
+                color: rgba(255,255,255,0.9);
+                font-weight: 500;
                 margin: 0;
-                padding: 10px 0px 0px 0px;
-                line-height: 120%;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
             }
-            a {font-family: "Poppins", sans-serif;
-                font-weight: 900;
-                font-style: normal;
-                color: rgba(255, 255, 255, 0.8);
+
+            /* Sub */
+
+            .sub {
+                /* min-height: 15vh; */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 3rem 0 1rem 0;
+            }
+
+            .sub h1 {
+                font-family: "Calistoga", serif;
+                font-size: clamp(2rem, 2vw, 3rem);
+                color: rgba(255,255,255,0.9);
+                font-weight: 400;
                 margin: 0;
-                line-height: 140%;
-               -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
             }
-            div {
-                padding: 15px 0px 0px 0px;
+
+            /* ALBUM GRID */
+
+            .albums {
+                width: min(1200px, 90%);
+                margin: 0 auto;
+                padding: 1rem 0;
+
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 2rem;
             }
-            ul {
-                list-style-type: none;
-                padding-left: 0;
+
+            .album {
+                display: block;
             }
-            a:link {
+
+            .album img {
+                width: 100%;
+                display: block;
+                border-radius: 4px;
+
+                transition: transform .3s ease;
+            }
+
+            .album:hover img {
+                transform: scale(1.03);
+            }
+
+            /* LINKS */
+
+            .links {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 2rem;
+
+                padding: 3rem 1rem 5rem;
+            }
+
+            .links a {
+                font-family: "Calistoga", serif;
+                font-weight: 300;
+                color: rgba(255,255,255,.85);
                 text-decoration: none;
-            }
-            a:visited {
-                color: white;
-            }
-            a:hover {
-                color: white;
-            }
-
-            /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
-            @media screen and (min-width: 601px) {
-            h1{
-                font-size: 7rem;
-            }
-            p {
-                font-size: 2rem;
-                max-width: 50%;
-            }
-            a {
-                font-size: 3rem;
-            }
-            }
-
-            /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-            @media screen and (max-width: 600px) {
-            h1{
-                font-size: 4.7rem;
-            }
-            p {
                 font-size: 1.2rem;
-                max-width: 100%;
             }
-            a {
-                font-size: 2.2rem;
+
+            .links a:hover {
+                color: white;
             }
-            }
+
         </style>
     </head>
     <body>
-        <h1>PAUL SULTANA</h1><p> is a singer-songwriter and worship leader who loves writing and recording songs to share with whoever will listen.  Take a look at the links below and enjoy!</p>
 
-        <div>
-            <ul>
-                <li><a href="https://www.youtube.com/c/paulsultana" target="_blank">YouTube</a></li>
-                <li><a href="https://paulsultana.bandcamp.com/" target="_blank">Bandcamp</a></li>
-                <li><a href="https://music.apple.com/cz/artist/paul-sultana/1037894030" target="_blank">Apple Music</a></li>
-                <li><a href="https://www.instagram.com/thepaulsultana" target="_blank">Instagram</a></li>
-                <li><a href="https://paulsultana.tumblr.com/" target="_blank">Blog</a></li>
-                <li><a href="https://www.paypal.com/donate/?hosted_button_id=FT477YUDP4GG4" target="_blank">Donate</a></li>
-                <li><a href="https://patreon.com/paulsultana" target="_blank">Patreon</a></li>
-            </ul>
-        </div>
+        <header class="hero">
+            <h1>Paul Sultana</h1>
+        </header>
+
+        <main>
+
+            <section class="sub">
+                <h1>Music</h1>
+            </section>
+            <section class="albums">
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/way-back-home"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a2641140104_2.jpg" alt="Way Back Home">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/let-your-face-shine-psalm-80"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a1157736720_2.jpg" alt="Let Your Face Shine (Psalm 80)">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/album/songs-of-the-story-volume-1"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a0102994347_2.jpg" alt="Songs of the Story Volume 1">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/heavy-wave"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a3567031688_2.jpg" alt="Heavy Wave">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/to-my-parents"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a0041267243_2.jpg" alt="To My Parents">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/wings-of-a-dove-acoustic"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a4231307322_2.jpg" alt="Wings of a Dove (Acoustic)">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/wings-of-a-dove"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a1946093822_2.jpg" alt="Wings of a Dove">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/right-on-time"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a1012500152_2.jpg" alt="Right on Time">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/oceans"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a2766867767_2.jpg" alt="Oceans">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/monsters"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a0342524419_2.jpg" alt="Monsters">
+                </a>
+
+                <a class="album"
+                href="https://paulsultana.bandcamp.com/track/welcome-to-budapest"
+                target="_blank">
+                    <img src="https://f4.bcbits.com/img/a2885036850_2.jpg" alt="Welcome to Budapest">
+                </a>
+            </section>
+
+            <section class="links">
+                <a href="https://www.youtube.com/c/paulsultana" target="_blank">YouTube</a>
+                <a href="https://www.instagram.com/thepaulsultana" target="_blank">Instagram</a>
+                <a href="https://patreon.com/paulsultana" target="_blank">Patreon</a>
+            </section>
+
+        </main>
 
     </body>
 </html>
