@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paul Sultana</title>
+  <meta name="description" content="Paul Sultana — original music" />
+
+  <style>
+    /* ---- Page (change this one value to recolor the background) ---- */
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #d9d9d9;
+    }
+    /* Webamp centers its window-group inside this element */
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* ----------------------------------------------------------------
+       LOCK DOWN: stop visitors from loading or removing other music.
+       The real guarantee is the JS handlers further down (they reject
+       drag-drop, "ADD URL" and "LOAD LIST"). These rules also neutralise
+       the eject/open button and the playlist ADD / REM buttons so the
+       UI never offers it. If a future Webamp version renames an id,
+       open devtools, find the button, and update the selector here.
+       Nothing a visitor loads survives a page refresh regardless.
+    ---------------------------------------------------------------- */
+    #eject,
+    #playlist-add-menu,
+    #playlist-remove-menu {
+      pointer-events: none !important;
+      opacity: 0.35;
+    }
+
+    /* Message shown only if the player can't run */
+    #fallback {
+      display: none;
+      font-family: Tahoma, "Segoe UI", sans-serif;
+      color: #444;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .no-webamp #fallback { display: block; }
+  </style>
+
+  <!-- If JavaScript is disabled entirely, reveal the fallback message -->
+  <noscript>
+    <style>#fallback { display: block; }</style>
+  </noscript>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="fallback">
+    <p>This player needs JavaScript and a modern browser.</p>
+    <p>Try the latest Chrome, Firefox, Safari or Edge.</p>
+  </div>
+
+  <!-- Very old browsers that don't understand ES modules: show fallback -->
+  <script nomodule>
+    document.body.classList.add("no-webamp");
+  </script>
+
+  <!--
+    Webamp 2 is an ES module, so it's imported inside <script type="module">.
+    Self-hosted: the bundle file sits next to this page in the repo, so the
+    whole stack lives on your own domain (no third-party CDN). It still needs
+    to be served over http/https — GitHub Pages does this; double-clicking the
+    file locally will not work (use a local server to test, see notes).
+  -->
+  <script type="module">
+    import Webamp from "./webamp.butterchurn.min.js";
+
+    try {
+      if (Webamp.browserIsSupported && !Webamp.browserIsSupported()) {
+        document.body.classList.add("no-webamp");
+      } else {
+        /* =================================================================
+           YOUR MUSIC — the only tracks the player will ever load.
+           Add one block per song. Put the mp3s in a /music folder at the
+           root of the site (so they live at paulsultana.com/music/...).
+
+             url:      path to the file (root-relative "/music/..." is safest)
+             artist:   shown in the playlist + title bar
+             title:    shown in the playlist + title bar
+             duration: length in SECONDS (optional but recommended — lets the
+                       playlist show the time instantly without Webamp
+                       sniffing the file first)
+        ================================================================= */
+        const tracks = [
+          {
+            url: "/music/track-01.mp3",
+            metaData: { artist: "Paul Sultana", title: "Track One" },
+            duration: 0
+          },
+          {
+            url: "/music/track-02.mp3",
+            metaData: { artist: "Paul Sultana", title: "Track Two" },
+            duration: 0
+          },
+          {
+            url: "/music/track-03.mp3",
+            metaData: { artist: "Paul Sultana", title: "Track Three" },
+            duration: 0
+          }
+        ];
+
+        const webamp = new Webamp({
+          initialTracks: tracks,
+
+          // Hardware / lock-screen media controls (play, pause, next, prev).
+          enableMediaSession: true,
+
+          // ---- The lock-down: refuse every "load other music" path ----
+          // Returning [] means "add no tracks", suppressing the default
+          // behaviour (returning null would ALLOW the default).
+          handleTrackDropEvent: async function () { return []; },
+          handleAddUrlEvent:   async function () { return []; },
+          handleLoadListEvent: async function () { return []; }
+
+          // To start a custom skin instead of the classic one, add:
+          // initialSkin: { url: "/skins/your-skin.wsz" },
+          // (download skins from https://skins.webamp.org)
+        });
+
+        await webamp.renderWhenReady(document.getElementById("app"));
+      }
+    } catch (err) {
+      console.error("Webamp failed to load:", err);
+      document.body.classList.add("no-webamp");
+    }
+  </script>
+</body>
+</html>
