@@ -32,7 +32,7 @@
     /* Webamp centers its window-group inside this element */
     #app {
       width: 100vw;
-      height: 100vh;
+      height: 60vh;
     }
 
     /* ----------------------------------------------------------------
@@ -60,6 +60,14 @@
       padding: 80px 20px;
     }
     .no-webamp #fallback { display: block; }
+
+    #headertext {
+      font-family:'Courier New', Courier, monospace;
+      color: #444;
+      text-align: center;
+      padding-top: 80px;
+    }
+    
   </style>
 
   <!-- If JavaScript is disabled entirely, reveal the fallback message -->
@@ -68,6 +76,9 @@
   </noscript>
 </head>
 <body>
+  <div id="headertext">
+    <p>Paul Sultana original music player</p>
+  </div>
   <div id="app"></div>
 
   <div id="fallback">
