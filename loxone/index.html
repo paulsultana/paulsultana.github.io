@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Guide Template</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --brand:        #69C350;   /* Mantis Green  (primary)            */
+  --brand-dark:   #437b33;   /* May Green     (hover / accent)     */
+  --brand-darker: #356128;   /* pressed state                      */
+  --ink:          #161B20;   /* near-black (headings, footer bg)   */
+  --text:         #2c3034;   /* body text                          */
+  --muted:        #565B5F;   /* Davys Grey (secondary text)        */
+  --line:         #e4e6e8;   /* hairline borders                   */
+  --bg:           #ffffff;
+  --bg-alt:       #f5f6f7;   /* alternating section background     */
+  --footer-bg:    #161B20;
+  --footer-text:  #aeb4b9;
+
+  --container-max: 1200px;   /* content width (matches Loxone)     */
+  --nav-h: 72px;             /* sticky nav height                  */
+  --radius: 4px;             /* Loxone uses tight corners          */
+
+  --font-body: 'Averta','Mulish','Helvetica Neue',Arial,sans-serif;
+}
+
+/* ---------- base ---------- */
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+body{
+  font-family:var(--font-body);
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* shared content width */
+.lx-container{
+  width:100%;
+  max-width:var(--container-max);
+  margin-inline:auto;
+  padding-inline:20px;
+}
+
+/* sections scroll clear of the sticky nav when jumped to */
+.lx-section{ padding-block:72px; scroll-margin-top:90px; }
+.lx-section--alt{ background:var(--bg-alt); }
+@media (max-width:768px){ .lx-section{ padding-block:48px; } }
+
+/* ---------- typography ---------- */
+h1,h2,h3,h4{ color:var(--ink); font-weight:800; line-height:1.2; }
+
+h1{ font-size:clamp(2rem,4.2vw,3rem); letter-spacing:-.01em; }
+h2{ font-size:clamp(1.5rem,2.8vw,2.1rem); text-transform:uppercase; letter-spacing:.02em; }
+h3{ font-size:clamp(1.15rem,1.8vw,1.4rem); }
+h4{ font-size:1.05rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+p{ margin:0 0 1rem; }
+.lx-lead{ font-size:1.2rem; color:var(--muted); font-weight:400; }
+
+/* a small green eyebrow / breadcrumb-style label above a heading */
+.lx-eyebrow{
+  display:inline-block; font-size:.8rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.12em; color:var(--brand-dark);
+  margin-bottom:.6rem;
+}
+/* a short green underline under a heading */
+.lx-rule{ width:56px; height:4px; background:var(--brand); border:0; margin:14px 0 26px; border-radius:2px; }
+
+a{ color:var(--brand-dark); text-decoration:none; }
+a:hover{ color:var(--brand-darker); text-decoration:underline; }
+
+/* ---------- buttons ---------- */
+.btn-brand{
+  background:var(--brand); border:1px solid var(--brand); color:#fff;
+  font-weight:700; text-transform:uppercase; letter-spacing:.03em;
+  padding:.7rem 1.5rem; border-radius:var(--radius);
+}
+.btn-brand:hover,.btn-brand:focus{ background:var(--brand-dark); border-color:var(--brand-dark); color:#fff; }
+.btn-outline-brand{
+  background:transparent; border:1px solid var(--brand-dark); color:var(--brand-dark);
+  font-weight:700; text-transform:uppercase; letter-spacing:.03em;
+  padding:.7rem 1.5rem; border-radius:var(--radius);
+}
+.btn-outline-brand:hover{ background:var(--brand-dark); color:#fff; }
+
+/* =========================================================
+   FLOATING / STICKY NAV  (single bar, anchors this page only)
+   ========================================================= */
+.lx-nav{
+  position:sticky; top:0; z-index:1030;
+  background:#fff; border-bottom:1px solid var(--line);
+  height:var(--nav-h); display:flex; align-items:center;
+  transition:box-shadow .2s ease;
+}
+.lx-nav.is-scrolled{ box-shadow:0 4px 18px rgba(22,27,32,.08); }
+.lx-nav .lx-container{ display:flex; align-items:center; justify-content:space-between; gap:24px; }
+
+.lx-nav__logo{ display:flex; align-items:center; color:var(--ink); flex:none; }
+.lx-nav__logo svg{ height:22px; width:auto; display:block; }
+
+.lx-nav__links{ display:flex; align-items:center; gap:28px; list-style:none; margin:0; padding:0; }
+.lx-nav__links a{
+  color:var(--text); font-weight:600; font-size:.95rem; padding:6px 0;
+  border-bottom:2px solid transparent; text-decoration:none; white-space:nowrap;
+}
+.lx-nav__links a:hover{ color:var(--ink); }
+.lx-nav__links a.is-active{ color:var(--ink); border-bottom-color:var(--brand); }
+
+/* vertically center the link row within the nav bar (desktop) */
+@media (min-width:992px){
+  .lx-nav__menu{ display:flex; align-items:center; height:100%; }
+}
+
+.lx-nav__toggle{
+  display:none; border:0; background:transparent; padding:8px; cursor:pointer;
+}
+.lx-nav__toggle span{ display:block; width:26px; height:2px; background:var(--ink); margin:5px 0; transition:.2s; }
+
+@media (max-width:991px){
+  .lx-nav__toggle{ display:block; }
+  .lx-nav__menu{
+    position:fixed; inset:var(--nav-h) 0 auto 0; background:#fff;
+    border-bottom:1px solid var(--line); box-shadow:0 12px 24px rgba(22,27,32,.1);
+    transform:translateY(-120%); transition:transform .25s ease;
+    padding:8px 0;
+  }
+  .lx-nav__menu.is-open{ transform:translateY(0); }
+  .lx-nav__links{ flex-direction:column; align-items:stretch; gap:0; }
+  .lx-nav__links a{ padding:14px 20px; border-bottom:1px solid var(--line); }
+  .lx-nav__links a.is-active{ border-bottom-color:var(--line); color:var(--brand-dark); }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.lx-hero{ padding-block:64px 56px; }
+
+/* =========================================================
+   CENTERED VIDEO
+   ========================================================= */
+.lx-video{ max-width:880px; margin:0 auto; }
+.lx-video__frame{
+  border-radius:var(--radius); overflow:hidden;
+  box-shadow:0 18px 48px rgba(22,27,32,.16); background:var(--ink);
+}
+.lx-video figcaption{ text-align:center; color:var(--muted); font-size:.92rem; margin-top:14px; }
+
+/* =========================================================
+   NUMBERED STEPS
+   ========================================================= */
+.lx-step{ display:flex; gap:22px; padding-block:26px; border-top:1px solid var(--line); }
+.lx-step:first-of-type{ border-top:0; }
+.lx-step__num{
+  flex:none; width:46px; height:46px; border-radius:50%;
+  background:var(--brand); color:#fff; font-weight:800; font-size:1.15rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.lx-step__body{ flex:1; min-width:0; }
+.lx-step__body h3{ margin:4px 0 .5rem; }
+@media (max-width:576px){
+  .lx-step{ gap:14px; }
+  .lx-step__num{ width:38px; height:38px; font-size:1rem; }
+}
+
+/* =========================================================
+   USE CASE BLOCKS (alternating image / text)
+   ========================================================= */
+.lx-usecase{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-bottom:64px; }
+.lx-usecase:last-child{ margin-bottom:0; }
+.lx-usecase--flip .lx-usecase__media{ order:2; }
+.lx-usecase__media img{ width:100%; border-radius:var(--radius); display:block; }
+.lx-usecase__media .lx-placeholder{
+  aspect-ratio:4/3; background:linear-gradient(135deg,#e9ecef,#dfe3e6);
+  border-radius:var(--radius); display:flex; align-items:center; justify-content:center;
+  color:var(--muted); font-weight:600;
+}
+.lx-usecase ul{ padding-left:1.1rem; color:var(--text); }
+.lx-usecase li{ margin-bottom:.4rem; }
+@media (max-width:768px){
+  .lx-usecase{ grid-template-columns:1fr; gap:22px; margin-bottom:44px; }
+  .lx-usecase--flip .lx-usecase__media{ order:0; }
+}
+
+/* =========================================================
+   COLLAPSIBLE TEXT BLOCK (reusable, used inside steps/use cases)
+   ========================================================= */
+.lx-collapse-toggle{
+  display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+  background:none; border:0; padding:0; color:var(--brand-dark);
+  font-weight:700; font-size:.92rem; text-transform:uppercase; letter-spacing:.03em;
+}
+.lx-collapse-toggle .lx-chevron{ transition:transform .2s ease; font-size:1.1rem; line-height:1; }
+.lx-collapse-toggle[aria-expanded="true"] .lx-chevron{ transform:rotate(90deg); }
+.lx-collapse-body{ padding-top:12px; color:var(--muted); }
+
+/* =========================================================
+   FAQ ACCORDION (Bootstrap accordion, re-themed)
+   ========================================================= */
+.accordion{ --bs-accordion-border-color:var(--line); --bs-accordion-border-radius:var(--radius); }
+.accordion-button{ font-weight:700; color:var(--ink); }
+.accordion-button:not(.collapsed){ background:#eef7ea; color:var(--brand-darker); box-shadow:none; }
+.accordion-button:focus{ box-shadow:0 0 0 .2rem rgba(105,195,80,.3); border-color:var(--brand); }
+.accordion-body{ color:var(--muted); }
+
+/* =========================================================
+   RESOURCE CARDS
+   ========================================================= */
+.lx-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px; height:100%; transition:.18s;
+}
+.lx-card:hover{ box-shadow:0 10px 28px rgba(22,27,32,.08); transform:translateY(-2px); }
+.lx-card h4{ color:var(--ink); text-transform:none; letter-spacing:0; margin-bottom:.4rem; }
+
+/* =========================================================
+   FOOTER  (green, no navigation — matches reference)
+   ========================================================= */
+.lx-footer{ background:var(--brand); color:var(--ink); padding-block:88px 40px; }
+.lx-footer__inner{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  flex-wrap:wrap; gap:24px 32px;
+}
+.lx-footer__logo{ color:var(--ink); display:inline-flex; }
+.lx-footer__logo svg{ height:26px; width:auto; }
+.lx-footer__copy{ margin:16px 0 0; font-size:.92rem; color:var(--ink); }
+.lx-footer__social{ display:flex; align-items:center; gap:18px; }
+.lx-footer__social a{ color:var(--ink); display:inline-flex; transition:opacity .15s; }
+.lx-footer__social a:hover{ opacity:.6; }
+.lx-footer__social svg{ width:20px; height:20px; fill:currentColor; }
+@media (max-width:576px){
+  .lx-footer__inner{ align-items:flex-start; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==========================================================
+     STICKY NAV  —  single bar, links jump within this page only.
+     ========================================================== -->
+<header class="lx-nav" id="lxNav">
+  <div class="lx-container">
+    <a href="#overview" class="lx-nav__logo" aria-label="Home">
+      <!-- LOGO (placeholder = Loxone wordmark you supplied) -->
+      <svg width="100" height="22" viewBox="0 0 100 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M91.4149 18.1044V12.2562H96.9392V8.69613H91.4149V5.93341L90.1667 4.01636H92.8082H100V0.456299H87.6289V0.471142V4.01636V18.1044V19.7067L88.9035 21.6644H100V18.1044H91.4149ZM83.4455 21.6508H83.8794V0.471191H80.4177V15.7242L72.6247 0.471191H71.489H68.8387H68.0273V21.6508H71.489V5.65867L79.6594 21.6508H80.4177H83.4455ZM63.5224 18.7948C64.4444 17.1971 64.544 15.5118 64.544 14.8618V7.21299C64.5051 3.63618 62.7241 1.86947 61.2373 1.01732C59.6341 0.0989541 57.9447 0 57.2933 0H56.0908C52.5047 0.0384399 50.7329 1.81467 49.8784 3.29784C48.958 4.89632 48.8584 6.58083 48.8584 7.23126L48.8587 14.8804C48.8973 18.4572 50.6783 20.2236 52.1651 21.0761C53.7683 21.9941 55.4573 22.093 56.1091 22.093H57.2967H57.3062C60.8942 22.0534 62.6672 20.2776 63.5224 18.7948ZM61.1099 14.8617C61.1099 16.2661 60.6111 18.6265 57.2773 18.6676H56.1095C54.6998 18.6676 52.3292 18.171 52.293 14.8617V7.23122C52.293 5.82531 52.7917 3.46069 56.1095 3.42529H57.2937C58.703 3.42529 61.0744 3.92197 61.1099 7.23122V14.8617ZM44.0577 21.6861H48.2971L42.3396 12.5366L40.2197 15.7922L44.0577 21.6861ZM42.3396 9.62064L48.2971 0.471191H44.0577L40.2197 6.36505L42.3396 9.62064ZM41.3893 11.0787L34.482 0.471191H30.2422L37.1495 11.0787L30.2422 21.6862H34.482L41.3893 11.0787ZM28.6586 18.7948C29.5806 17.1971 29.6798 15.5118 29.6798 14.8618V7.21299C29.6416 3.63618 27.8602 1.86947 26.3731 1.01732C24.7703 0.0989541 23.0809 0 22.429 0H21.227C17.6405 0.0384399 15.869 1.81467 15.0146 3.29784C14.0937 4.89632 13.9941 6.58083 13.9941 7.23126V14.8804C14.0331 18.4572 15.8141 20.2236 17.3016 21.0761C18.904 21.9941 20.5931 22.093 21.2453 22.093H22.4329H22.442C26.0308 22.0534 27.8034 20.2776 28.6586 18.7948ZM26.2443 14.8617C26.2443 16.2661 25.7462 18.6265 22.4121 18.6676H21.2443C19.8346 18.6676 17.464 18.171 17.4277 14.8617V7.23122C17.4277 5.82531 17.9261 3.46069 21.2443 3.42529H22.4281C23.8382 3.42529 26.2092 3.92197 26.2443 7.23122V14.8617ZM1.25362 21.6644H12.3717V18.1044H3.78565V0.471133H0V18.1044V19.7398L1.25362 21.6644Z" fill="currentColor"></path></svg>
+    </a>
+
+    <!-- Hamburger (mobile only) -->
+    <button class="lx-nav__toggle" id="lxNavToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="lxNavMenu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="lx-nav__menu" id="lxNavMenu">
+      <ul class="lx-nav__links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#video">Video</a></li>
+        <li><a href="#get-started">Get started</a></li>
+        <li><a href="#use-cases">Use cases</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#resources">Resources</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ====================================================
+       SECTION: HERO / OVERVIEW
+       ==================================================== -->
+  <section class="lx-section lx-hero" id="overview">
+    <div class="lx-container">
+      <span class="lx-eyebrow">Getting Started Guide</span>
+      <h1>Product Name — First Steps</h1>
+      <hr class="lx-rule">
+
+      <p class="lx-lead">
+        A one- or two-sentence summary of what this guide covers and who it's for.
+        Replace this lead paragraph with your own intro.
+      </p>
+      <p style="max-width:760px;">
+        Body paragraph. Use this space for a short description of the product, the
+        outcome the reader will reach by the end of the guide, and anything they
+        need before starting. Keep it scannable — the steps below do the heavy lifting.
+      </p>
+
+      <div class="d-flex flex-wrap gap-3 mt-4">
+        <a href="#get-started" class="btn btn-brand">Start the guide</a>
+        <a href="#video" class="btn btn-outline-brand">Watch the overview</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       SECTION: CENTERED VIDEO
+       ==================================================== -->
+  <section class="lx-section lx-section--alt" id="video">
+    <div class="lx-container">
+      <div class="text-center mb-4">
+        <span class="lx-eyebrow">Watch first</span>
+        <h2>Overview in 90 seconds</h2>
+      </div>
+
+      <figure class="lx-video">
+        <!-- 16:9 responsive frame, centered.
+             OPTION A — embed (YouTube / Vimeo / your CDN): replace src below.
+             OPTION B — self-hosted file: delete the iframe and uncomment the <video>. -->
+        <div class="lx-video__frame ratio ratio-16x9">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="Product overview video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+        </div>
+
+        <!--
+        <video class="lx-video__frame w-100" controls poster="poster.jpg">
+          <source src="overview.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        -->
+
+        <figcaption>Optional caption — e.g. “Full walkthrough: setup to first protected hostname.”</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       SECTION: GET STARTED (numbered steps)
+       Each step = circle number + h3 + h4 + p, with an optional
+       collapsible "details" block.  Duplicate a .lx-step to add more.
+       ==================================================== -->
+  <section class="lx-section" id="get-started">
+    <div class="lx-container">
+      <span class="lx-eyebrow">Step by step</span>
+      <h2>Get started</h2>
+      <hr class="lx-rule">
+      <p class="lx-lead mb-5" style="max-width:720px;">Follow these steps in order. Each one builds on the last.</p>
+
+      <!-- STEP 1 -->
+      <div class="lx-step">
+        <div class="lx-step__num">1</div>
+        <div class="lx-step__body">
+          <h4>Prepare</h4>
+          <h3>Create your account and log in</h3>
+          <p>
+            Describe the first action the user takes. Keep each step focused on a single
+            outcome so it's easy to follow during a live onboarding call.
+          </p>
+
+          <!-- Reusable collapsible text block -->
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#step1more" aria-expanded="false" aria-controls="step1more">
+            <span class="lx-chevron">›</span> Show details
+          </button>
+          <div class="collapse lx-collapse-body" id="step1more">
+            Hidden detail text. Use this for the longer explanation, edge cases, or
+            screenshots that would otherwise clutter the main step. Anything can go here:
+            lists, images, code, links.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="lx-step">
+        <div class="lx-step__num">2</div>
+        <div class="lx-step__body">
+          <h4>Configure</h4>
+          <h3>Add your first item</h3>
+          <p>Second step body text goes here.</p>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#step2more" aria-expanded="false" aria-controls="step2more">
+            <span class="lx-chevron">›</span> Show details
+          </button>
+          <div class="collapse lx-collapse-body" id="step2more">
+            Hidden detail text for step 2.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="lx-step">
+        <div class="lx-step__num">3</div>
+        <div class="lx-step__body">
+          <h4>Verify</h4>
+          <h3>Confirm everything works</h3>
+          <p>Final step body text goes here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       SECTION: USE CASES (2+ examples, alternating layout)
+       Duplicate a .lx-usecase block to add more. Add the
+       --flip modifier on alternating ones for the zig-zag look.
+       ==================================================== -->
+  <section class="lx-section lx-section--alt" id="use-cases">
+    <div class="lx-container">
+      <div class="mb-5">
+        <span class="lx-eyebrow">In practice</span>
+        <h2>Use case examples</h2>
+        <hr class="lx-rule">
+      </div>
+
+      <!-- USE CASE 1 -->
+      <article class="lx-usecase">
+        <div class="lx-usecase__media">
+          <!-- Replace with <img src="..." alt="..."> -->
+          <div class="lx-placeholder">Image / screenshot</div>
+        </div>
+        <div class="lx-usecase__copy">
+          <h3>Example one — a common scenario</h3>
+          <p>Describe a real situation a customer recognises, then show how the product solves it.</p>
+          <ul>
+            <li>Concrete benefit or result.</li>
+            <li>Another point worth calling out.</li>
+            <li>A third, if useful.</li>
+          </ul>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#uc1more" aria-expanded="false" aria-controls="uc1more">
+            <span class="lx-chevron">›</span> How it's set up
+          </button>
+          <div class="collapse lx-collapse-body" id="uc1more">
+            Optional deeper explanation of the configuration behind this use case.
+          </div>
+        </div>
+      </article>
+
+      <!-- USE CASE 2 (flipped) -->
+      <article class="lx-usecase lx-usecase--flip">
+        <div class="lx-usecase__media">
+          <div class="lx-placeholder">Image / screenshot</div>
+        </div>
+        <div class="lx-usecase__copy">
+          <h3>Example two — a different scenario</h3>
+          <p>A second, contrasting example so readers can map their own situation onto one of them.</p>
+          <ul>
+            <li>Benefit specific to this case.</li>
+            <li>Another relevant point.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       SECTION: FAQ (Bootstrap accordion = collapsible text blocks)
+       ==================================================== -->
+  <section class="lx-section" id="faq">
+    <div class="lx-container" style="max-width:840px;">
+      <div class="text-center mb-5">
+        <span class="lx-eyebrow">Good to know</span>
+        <h2>Frequently asked questions</h2>
+      </div>
+
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              First question goes here?
+            </button>
+          </h3>
+          <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Answer to the first question.</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+              Second question goes here?
+            </button>
+          </h3>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Answer to the second question.</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+              Third question goes here?
+            </button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Answer to the third question.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       SECTION: RESOURCES / NEXT STEPS
+       ==================================================== -->
+  <section class="lx-section lx-section--alt" id="resources">
+    <div class="lx-container">
+      <div class="mb-5">
+        <span class="lx-eyebrow">Keep going</span>
+        <h2>Resources &amp; next steps</h2>
+        <hr class="lx-rule">
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="lx-card">
+            <h4>Documentation</h4>
+            <p class="text-muted mb-3">Deep-dive reference for every feature.</p>
+            <a href="#">Open the docs →</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="lx-card">
+            <h4>Video tutorials</h4>
+            <p class="text-muted mb-3">Short, focused walkthroughs.</p>
+            <a href="#">Watch tutorials →</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="lx-card">
+            <h4>Talk to support</h4>
+            <p class="text-muted mb-3">Get help from a real person.</p>
+            <a href="#">Contact us →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ==========================================================
+     FOOTER  (the large link-grid nav that sits above Loxone's
+     footer is intentionally omitted, per your request)
+     ========================================================== -->
+<footer class="lx-footer">
+  <div class="lx-container lx-footer__inner">
+
+    <!-- Left: logo + copyright -->
+    <div class="lx-footer__brand">
+      <span class="lx-footer__logo" aria-hidden="true">
+        <svg width="100" height="22" viewBox="0 0 100 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M91.4149 18.1044V12.2562H96.9392V8.69613H91.4149V5.93341L90.1667 4.01636H92.8082H100V0.456299H87.6289V0.471142V4.01636V18.1044V19.7067L88.9035 21.6644H100V18.1044H91.4149ZM83.4455 21.6508H83.8794V0.471191H80.4177V15.7242L72.6247 0.471191H71.489H68.8387H68.0273V21.6508H71.489V5.65867L79.6594 21.6508H80.4177H83.4455ZM63.5224 18.7948C64.4444 17.1971 64.544 15.5118 64.544 14.8618V7.21299C64.5051 3.63618 62.7241 1.86947 61.2373 1.01732C59.6341 0.0989541 57.9447 0 57.2933 0H56.0908C52.5047 0.0384399 50.7329 1.81467 49.8784 3.29784C48.958 4.89632 48.8584 6.58083 48.8584 7.23126L48.8587 14.8804C48.8973 18.4572 50.6783 20.2236 52.1651 21.0761C53.7683 21.9941 55.4573 22.093 56.1091 22.093H57.2967H57.3062C60.8942 22.0534 62.6672 20.2776 63.5224 18.7948ZM61.1099 14.8617C61.1099 16.2661 60.6111 18.6265 57.2773 18.6676H56.1095C54.6998 18.6676 52.3292 18.171 52.293 14.8617V7.23122C52.293 5.82531 52.7917 3.46069 56.1095 3.42529H57.2937C58.703 3.42529 61.0744 3.92197 61.1099 7.23122V14.8617ZM44.0577 21.6861H48.2971L42.3396 12.5366L40.2197 15.7922L44.0577 21.6861ZM42.3396 9.62064L48.2971 0.471191H44.0577L40.2197 6.36505L42.3396 9.62064ZM41.3893 11.0787L34.482 0.471191H30.2422L37.1495 11.0787L30.2422 21.6862H34.482L41.3893 11.0787ZM28.6586 18.7948C29.5806 17.1971 29.6798 15.5118 29.6798 14.8618V7.21299C29.6416 3.63618 27.8602 1.86947 26.3731 1.01732C24.7703 0.0989541 23.0809 0 22.429 0H21.227C17.6405 0.0384399 15.869 1.81467 15.0146 3.29784C14.0937 4.89632 13.9941 6.58083 13.9941 7.23126V14.8804C14.0331 18.4572 15.8141 20.2236 17.3016 21.0761C18.904 21.9941 20.5931 22.093 21.2453 22.093H22.4329H22.442C26.0308 22.0534 27.8034 20.2776 28.6586 18.7948ZM26.2443 14.8617C26.2443 16.2661 25.7462 18.6265 22.4121 18.6676H21.2443C19.8346 18.6676 17.464 18.171 17.4277 14.8617V7.23122C17.4277 5.82531 17.9261 3.46069 21.2443 3.42529H22.4281C23.8382 3.42529 26.2092 3.92197 26.2443 7.23122V14.8617ZM1.25362 21.6644H12.3717V18.1044H3.78565V0.471133H0V18.1044V19.7398L1.25362 21.6644Z" fill="currentColor"></path></svg>
+      </span>
+      <p class="lx-footer__copy">Copyright © <span id="lxYear">2026</span> Your Company. All rights reserved.</p>
+    </div>
+
+    <!-- Right: social icons (edit links / remove any you don't use) -->
+    <div class="lx-footer__social">
+      <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227a3.81 3.81 0 01-.899 1.382 3.744 3.744 0 01-1.38.896c-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421a3.716 3.716 0 01-1.379-.899 3.644 3.644 0 01-.9-1.38c-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm7.846-10.405a1.441 1.441 0 01-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </div>
+
+  </div>
+</footer>
+
+<!-- Bootstrap JS bundle (accordion + collapse). Download to self-host if needed. -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ---------- nav: shadow on scroll ---------- */
+const nav = document.getElementById('lxNav');
+const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+onScroll();
+window.addEventListener('scroll', onScroll, { passive:true });
+
+/* ---------- mobile menu toggle ---------- */
+const toggle = document.getElementById('lxNavToggle');
+const menu   = document.getElementById('lxNavMenu');
+toggle.addEventListener('click', () => {
+  const open = menu.classList.toggle('is-open');
+  toggle.setAttribute('aria-expanded', open);
+});
+/* close the mobile menu after tapping a link */
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  menu.classList.remove('is-open');
+  toggle.setAttribute('aria-expanded', false);
+}));
+
+/* ---------- scrollspy: highlight the active nav link ---------- */
+const links = [...document.querySelectorAll('.lx-nav__links a')];
+const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('is-active'));
+      map.get(e.target.id)?.classList.add('is-active');
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
+
+/* ---------- footer year ---------- */
+document.getElementById('lxYear').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
