@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paul's Quick Start Guide</title>
+<title>Loxone Sample Case Quick Start Guide</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,6 @@
   --font-body: 'Averta','Mulish','Helvetica Neue',Arial,sans-serif;
 }
 
-/* ---------- base ---------- */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
@@ -43,7 +42,6 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* shared content width */
 .lx-container{
   width:100%;
   max-width:var(--container-max);
@@ -51,12 +49,10 @@ body{
   padding-inline:20px;
 }
 
-/* sections scroll clear of the sticky nav when jumped to */
 .lx-section{ padding-block:72px; scroll-margin-top:90px; }
 .lx-section--alt{ background:var(--bg-alt); }
 @media (max-width:768px){ .lx-section{ padding-block:48px; } }
 
-/* ---------- typography ---------- */
 h1,h2,h3,h4{ color:var(--ink); font-weight:800; line-height:1.2; }
 
 h1{ font-size:clamp(2rem,4.2vw,3rem); letter-spacing:-.01em; }
@@ -66,19 +62,17 @@ h4{ font-size:1.05rem; font-weight:700; color:var(--muted); text-transform:upper
 p{ margin:0 0 1rem; }
 .lx-lead{ font-size:1.2rem; color:var(--muted); font-weight:400; }
 
-/* a small green eyebrow / breadcrumb-style label above a heading */
 .lx-eyebrow{
   display:inline-block; font-size:.8rem; font-weight:700;
   text-transform:uppercase; letter-spacing:.12em; color:var(--brand-dark);
   margin-bottom:.6rem;
 }
-/* a short green underline under a heading */
-.lx-rule{ width:56px; height:4px; background:var(--brand); border:0; margin:14px 0 26px; border-radius:2px; }
+
+.lx-rule{ width:56px; height:4px; background:var(--brand); border:0; margin:14px 0 26px; border-radius:2px;}
 
 a{ color:var(--brand-dark); text-decoration:none; }
 a:hover{ color:var(--brand-darker); text-decoration:underline; }
 
-/* ---------- buttons ---------- */
 .btn-brand{
   background:var(--brand); border:1px solid var(--brand); color:#fff;
   font-weight:700; text-transform:uppercase; letter-spacing:.03em;
@@ -92,9 +86,6 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
 }
 .btn-outline-brand:hover{ background:var(--brand-dark); color:#fff; }
 
-/* =========================================================
-   FLOATING / STICKY NAV  (single bar, anchors this page only)
-   ========================================================= */
 .lx-nav{
   position:sticky; top:0; z-index:1030;
   background:#fff; border-bottom:1px solid var(--line);
@@ -139,14 +130,8 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
   .lx-nav__links a.is-active{ border-bottom-color:var(--line); color:var(--brand-dark); }
 }
 
-/* =========================================================
-   HERO
-   ========================================================= */
 .lx-hero{ padding-block:64px 56px; }
 
-/* =========================================================
-   CENTERED VIDEO
-   ========================================================= */
 .lx-video{ max-width:880px; margin:0 auto; }
 .lx-video__frame{
   border-radius:var(--radius); overflow:hidden;
@@ -154,9 +139,6 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
 }
 .lx-video figcaption{ text-align:center; color:var(--muted); font-size:.92rem; margin-top:14px; }
 
-/* =========================================================
-   NUMBERED STEPS
-   ========================================================= */
 .lx-step{ display:flex; gap:22px; padding-block:26px; border-top:1px solid var(--line); }
 .lx-step:first-of-type{ border-top:0; }
 .lx-step__num{
@@ -171,9 +153,6 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
   .lx-step__num{ width:38px; height:38px; font-size:1rem; }
 }
 
-/* =========================================================
-   USE CASE BLOCKS (alternating image / text)
-   ========================================================= */
 .lx-usecase{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-bottom:64px; }
 .lx-usecase:last-child{ margin-bottom:0; }
 .lx-usecase--flip .lx-usecase__media{ order:2; }
@@ -190,9 +169,6 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
   .lx-usecase--flip .lx-usecase__media{ order:0; }
 }
 
-/* =========================================================
-   COLLAPSIBLE TEXT BLOCK (reusable, used inside steps/use cases)
-   ========================================================= */
 .lx-collapse-toggle{
   display:inline-flex; align-items:center; gap:8px; cursor:pointer;
   background:none; border:0; padding:0; color:var(--brand-dark);
@@ -202,18 +178,12 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
 .lx-collapse-toggle[aria-expanded="true"] .lx-chevron{ transform:rotate(90deg); }
 .lx-collapse-body{ padding-top:12px; color:var(--muted); }
 
-/* =========================================================
-   FAQ ACCORDION (Bootstrap accordion, re-themed)
-   ========================================================= */
 .accordion{ --bs-accordion-border-color:var(--line); --bs-accordion-border-radius:var(--radius); }
 .accordion-button{ font-weight:700; color:var(--ink); }
 .accordion-button:not(.collapsed){ background:#eef7ea; color:var(--brand-darker); box-shadow:none; }
 .accordion-button:focus{ box-shadow:0 0 0 .2rem rgba(105,195,80,.3); border-color:var(--brand); }
 .accordion-body{ color:var(--muted); }
 
-/* =========================================================
-   RESOURCE CARDS
-   ========================================================= */
 .lx-card{
   background:#fff; border:1px solid var(--line); border-radius:var(--radius);
   padding:26px; height:100%; transition:.18s;
@@ -221,9 +191,6 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
 .lx-card:hover{ box-shadow:0 10px 28px rgba(22,27,32,.08); transform:translateY(-2px); }
 .lx-card h4{ color:var(--ink); text-transform:none; letter-spacing:0; margin-bottom:.4rem; }
 
-/* =========================================================
-   FOOTER  (green, no navigation — matches reference)
-   ========================================================= */
 .lx-footer{ background:var(--brand); color:var(--ink); padding-block:88px 40px; }
 .lx-footer__inner{
   display:flex; align-items:flex-end; justify-content:space-between;
@@ -239,18 +206,65 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
 @media (max-width:576px){
   .lx-footer__inner{ align-items:flex-start; }
 }
+
+/* Media placeholders — every spot to drop a video / screenshot / GIF.
+   Dashed brand border so they're impossible to miss while editing. */
+.lx-ph{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:6px;
+  border:2px dashed var(--brand); border-radius:var(--radius);
+  background:repeating-linear-gradient(45deg,#f3faf0,#f3faf0 12px,#eef7ea 12px,#eef7ea 24px);
+  color:var(--brand-darker); font-weight:600; padding:22px;
+  min-height:180px;
+}
+.lx-ph .lx-ph__type{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--brand-dark); }
+.lx-ph .lx-ph__icon{ font-size:1.6rem; line-height:1; }
+.lx-ph--wide{ aspect-ratio:16/9; min-height:0; width:100%; }
+
+.lx-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  background:#eef7ea; color:var(--brand-darker);
+  font-size:.82rem; font-weight:700; letter-spacing:.02em;
+  padding:.32rem .7rem; border-radius:999px; border:1px solid #d5ebcd;
+}
+.lx-badges{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+
+/* a per-part time chip that sits next to the heading */
+.lx-time{ font-size:.95rem; font-weight:700; color:var(--brand-dark); margin-left:2px; }
+
+/* GOAL callout used at the top of every exercise */
+.lx-goal{
+  border-left:4px solid var(--brand); background:#f3faf0;
+  padding:12px 16px; border-radius:0 var(--radius) var(--radius) 0; margin:0 0 14px;
+}
+.lx-goal strong{ color:var(--brand-darker); text-transform:uppercase; letter-spacing:.06em; font-size:.78rem; }
+
+/* clean numbered exercise steps */
+.lx-do{ counter-reset:do; list-style:none; padding-left:0; margin:0 0 14px; }
+.lx-do li{ position:relative; padding-left:38px; margin-bottom:10px; }
+.lx-do li::before{
+  counter-increment:do; content:counter(do);
+  position:absolute; left:0; top:0;
+  width:26px; height:26px; border-radius:50%;
+  background:var(--ink); color:#fff; font-weight:800; font-size:.85rem;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* recap line at the end of each part */
+.lx-recap{
+  display:flex; gap:12px; align-items:flex-start;
+  background:var(--bg-alt); border-radius:var(--radius);
+  padding:16px 18px; margin-top:8px;
+}
+.lx-recap .lx-recap__check{ color:var(--brand); font-weight:800; font-size:1.2rem; line-height:1.4; flex:none; }
+.lx-recap p{ margin:0; color:var(--text); }
 </style>
 </head>
 
 <body>
-
-<!-- ==========================================================
-     STICKY NAV  —  single bar, links jump within this page only.
-     ========================================================== -->
 <header class="lx-nav" id="lxNav">
   <div class="lx-container">
     <a href="#overview" class="lx-nav__logo" aria-label="Home">
-      <!-- LOGO (placeholder = Loxone wordmark you supplied) -->
       <svg width="100" height="22" viewBox="0 0 100 23" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M91.4149 18.1044V12.2562H96.9392V8.69613H91.4149V5.93341L90.1667 4.01636H92.8082H100V0.456299H87.6289V0.471142V4.01636V18.1044V19.7067L88.9035 21.6644H100V18.1044H91.4149ZM83.4455 21.6508H83.8794V0.471191H80.4177V15.7242L72.6247 0.471191H71.489H68.8387H68.0273V21.6508H71.489V5.65867L79.6594 21.6508H80.4177H83.4455ZM63.5224 18.7948C64.4444 17.1971 64.544 15.5118 64.544 14.8618V7.21299C64.5051 3.63618 62.7241 1.86947 61.2373 1.01732C59.6341 0.0989541 57.9447 0 57.2933 0H56.0908C52.5047 0.0384399 50.7329 1.81467 49.8784 3.29784C48.958 4.89632 48.8584 6.58083 48.8584 7.23126L48.8587 14.8804C48.8973 18.4572 50.6783 20.2236 52.1651 21.0761C53.7683 21.9941 55.4573 22.093 56.1091 22.093H57.2967H57.3062C60.8942 22.0534 62.6672 20.2776 63.5224 18.7948ZM61.1099 14.8617C61.1099 16.2661 60.6111 18.6265 57.2773 18.6676H56.1095C54.6998 18.6676 52.3292 18.171 52.293 14.8617V7.23122C52.293 5.82531 52.7917 3.46069 56.1095 3.42529H57.2937C58.703 3.42529 61.0744 3.92197 61.1099 7.23122V14.8617ZM44.0577 21.6861H48.2971L42.3396 12.5366L40.2197 15.7922L44.0577 21.6861ZM42.3396 9.62064L48.2971 0.471191H44.0577L40.2197 6.36505L42.3396 9.62064ZM41.3893 11.0787L34.482 0.471191H30.2422L37.1495 11.0787L30.2422 21.6862H34.482L41.3893 11.0787ZM28.6586 18.7948C29.5806 17.1971 29.6798 15.5118 29.6798 14.8618V7.21299C29.6416 3.63618 27.8602 1.86947 26.3731 1.01732C24.7703 0.0989541 23.0809 0 22.429 0H21.227C17.6405 0.0384399 15.869 1.81467 15.0146 3.29784C14.0937 4.89632 13.9941 6.58083 13.9941 7.23126V14.8804C14.0331 18.4572 15.8141 20.2236 17.3016 21.0761C18.904 21.9941 20.5931 22.093 21.2453 22.093H22.4329H22.442C26.0308 22.0534 27.8034 20.2776 28.6586 18.7948ZM26.2443 14.8617C26.2443 16.2661 25.7462 18.6265 22.4121 18.6676H21.2443C19.8346 18.6676 17.464 18.171 17.4277 14.8617V7.23122C17.4277 5.82531 17.9261 3.46069 21.2443 3.42529H22.4281C23.8382 3.42529 26.2092 3.92197 26.2443 7.23122V14.8617ZM1.25362 21.6644H12.3717V18.1044H3.78565V0.471133H0V18.1044V19.7398L1.25362 21.6644Z" fill="currentColor"></path></svg>
     </a>
 
@@ -262,109 +276,90 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
     <div class="lx-nav__menu" id="lxNavMenu">
       <ul class="lx-nav__links">
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#video">Video</a></li>
-        <li><a href="#get-started">Get started</a></li>
-        <li><a href="#use-cases">Use cases</a></li>
+        <li><a href="#part1">Power on and test</a></li>
+        <li><a href="#part2">Loxone App</a></li>
+        <li><a href="#part3">Loxone Config</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#resources">Resources</a></li>
+        <li><a href="#resources">Next steps</a></li>
       </ul>
     </div>
   </div>
 </header>
 
 <main>
-
-  <!-- ====================================================
-       SECTION: HERO / OVERVIEW
-       ==================================================== -->
   <section class="lx-section lx-hero" id="overview">
     <div class="lx-container">
-      <span class="lx-eyebrow">Getting Started Guide</span>
-      <h1>Product Name — First Steps</h1>
+      <span class="lx-eyebrow">Loxone Sample Case · Quick Start Guide</span>
+      <h1>Get started with Loxone in 30 minutes or less</h1>
       <hr class="lx-rule">
 
+      <h2 class="lx-lead" style="color: var(--brand)"><strong>Thank you for purchasing the Loxone Sample Case and welcome to Loxone!</strong></h2>
       <p class="lx-lead">
-        A one- or two-sentence summary of what this guide covers and who it's for.
-        Replace this lead paragraph with your own intro.
+        The Sample Case is your introduction to the basics of Loxone 
+        hardware and software.<br>By the end of this guide you will have successfully:
       </p>
-      <p style="max-width:760px;">
-        Body paragraph. Use this space for a short description of the product, the
-        outcome the reader will reach by the end of the guide, and anything they
-        need before starting. Keep it scannable — the steps below do the heavy lifting.
+      <ul>
+        <li>Connected and powered on your Loxone Sample Case</li>
+        <li>Tested the basic functionality of the Touch Tree, Presence Sensor Tree, and the RGBW 24V Dimmer Tree</li>
+        <li>Connected to the Loxone Sample Case with the Loxone App and Loxone Config</li>
+        <li>Understood how to control the Miniserver and Tree elements manually, with the <a href="https://www.loxone.com/enus/products/apps/">
+        <strong>Loxone App</strong></a>, and with <a href="https://www.loxone.com/enus/products/loxone-config/"><strong>Loxone Config</strong></a></li>
+      </ul>
+      <p style="max-width:1020px;">
+        Inside the case you'll find a
+        <a href="https://www.loxone.com/enus/kb/miniserver/"><strong>Miniserver</strong></a> (the brain that runs every automation), a wired
+        <a href="https://www.loxone.com/enus/kb/tree-extension/"><strong>Tree</strong></a> extension for wired devices, an 
+        <a href="https://www.loxone.com/enus/kb/air-base-extension/"><strong>Air Base</strong></a> extension for wireless
+        devices, an <a href="https://www.loxone.com/enus/kb/rgbw-24v-dimmer-tree/"><strong>RGBW 24V Dimmer Tree</strong></a> extension, and a <strong>WiFi router</strong> so your phone or PC can talk to it.
       </p>
 
+      <div class="lx-badges">
+        <span class="lx-badge">⏱ ~30 minutes total</span>
+        <span class="lx-badge">✓ No prior experience needed</span>
+      </div>
+
       <div class="d-flex flex-wrap gap-3 mt-4">
-        <a href="#get-started" class="btn btn-brand">Start the guide</a>
-        <a href="#video" class="btn btn-outline-brand">Watch the overview</a>
+        <a href="#part1" class="btn btn-brand">Start with Part 1</a>
+        <a href="#video" class="btn btn-outline-brand">Watch the tour</a>
       </div>
     </div>
   </section>
 
-  <!-- ====================================================
-       SECTION: CENTERED VIDEO
-       ==================================================== -->
   <section class="lx-section lx-section--alt" id="video">
     <div class="lx-container">
       <div class="text-center mb-4">
         <span class="lx-eyebrow">Watch first</span>
-        <h2>Overview in 90 seconds</h2>
+        <h2>Unboxing &amp; 90-second tour</h2>
       </div>
 
       <figure class="lx-video">
-        <!-- 16:9 responsive frame, centered.
-             OPTION A — embed (YouTube / Vimeo / your CDN): replace src below.
-             OPTION B — self-hosted file: delete the iframe and uncomment the <video>. -->
-        <div class="lx-video__frame ratio ratio-16x9">
-          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="Product overview video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
+        <!-- Replace this placeholder with your embed (iframe) or self-hosted <video>. -->
+        <div class="lx-ph lx-ph--wide">
+          <span class="lx-ph__icon">▶</span>
+          <span class="lx-ph__type">Video</span>
+          <span>Unboxing &amp; overview - approx. 90 sec.<br>Drop your YouTube/Vimeo embed or MP4 here.</span>
         </div>
-
-        <!--
-        <video class="lx-video__frame w-100" controls poster="poster.jpg">
-          <source src="overview.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        -->
-
-        <figcaption>Optional caption — e.g. “Full walkthrough: setup to first protected hostname.”</figcaption>
+        <figcaption>What's inside the sample case and what you can do with it.</figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- ====================================================
-       SECTION: GET STARTED (numbered steps)
-       Each step = circle number + h3 + h4 + p, with an optional
-       collapsible "details" block.  Duplicate a .lx-step to add more.
-       ==================================================== -->
-  <section class="lx-section" id="get-started">
+  <section class="lx-section" id="part1">
     <div class="lx-container">
-      <span class="lx-eyebrow">Step by step</span>
-      <h2>Get started</h2>
+      <span class="lx-eyebrow">Part 1 of 3</span>
+      <h2>Power on and test <span class="lx-time">~10 min</span></h2>
       <hr class="lx-rule">
-      <p class="lx-lead mb-5" style="max-width:720px;">Follow these steps in order. Each one builds on the last.</p>
+      <p class="lx-lead mb-5" style="max-width:720px;">
+        Get the Sample Case up and running and start using the Tree devices right away, before touching any software.
+      </p>
 
       <!-- STEP 1 -->
       <div class="lx-step">
         <div class="lx-step__num">1</div>
         <div class="lx-step__body">
-          <h4>Prepare</h4>
-          <h3>Create your account and log in</h3>
-          <p>
-            Describe the first action the user takes. Keep each step focused on a single
-            outcome so it's easy to follow during a live onboarding call.
-          </p>
-
-          <!-- Reusable collapsible text block -->
-          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#step1more" aria-expanded="false" aria-controls="step1more">
-            <span class="lx-chevron">›</span> Show details
-          </button>
-          <div class="collapse lx-collapse-body" id="step1more">
-            Hidden detail text. Use this for the longer explanation, edge cases, or
-            screenshots that would otherwise clutter the main step. Anything can go here:
-            lists, images, code, links.
-          </div>
+          <h4>Connect</h4>
+          <h3>Plug in the power</h3>
+          <p>Connect the supplied power adapter to the socket on the <strong>back</strong> of the case, then into a wall outlet.</p>
         </div>
       </div>
 
@@ -372,14 +367,13 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
       <div class="lx-step">
         <div class="lx-step__num">2</div>
         <div class="lx-step__body">
-          <h4>Configure</h4>
-          <h3>Add your first item</h3>
-          <p>Second step body text goes here.</p>
-          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#step2more" aria-expanded="false" aria-controls="step2more">
-            <span class="lx-chevron">›</span> Show details
-          </button>
-          <div class="collapse lx-collapse-body" id="step2more">
-            Hidden detail text for step 2.
+          <h4>Verify</h4>
+          <h3>Wait for green lights</h3>
+          <p>The Miniserver boots automatically. The case is ready when <strong>all LEDs blink green</strong>, which takes just a few seconds.</p>
+          <div class="lx-ph mt-3" style="max-width:520px;">
+            <span class="lx-ph__icon">📷</span>
+            <span class="lx-ph__type">Screenshot / photo</span>
+            <span>Back of the case: power socket + LEDs blinking green.</span>
           </div>
         </div>
       </div>
@@ -388,71 +382,350 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
       <div class="lx-step">
         <div class="lx-step__num">3</div>
         <div class="lx-step__body">
-          <h4>Verify</h4>
-          <h3>Confirm everything works</h3>
-          <p>Final step body text goes here.</p>
+          <h4>Ready</h4>
+          <h3>Everything is already configured</h3>
+          <p>The default configuration allows you to manually operate the built in devices right away. No setup is required.</p>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#p1more" aria-expanded="false" aria-controls="p1more">
+            <span class="lx-chevron">›</span> What's happening behind the scenes
+          </button>
+          <div class="collapse lx-collapse-body" id="p1more">
+            The Miniserver comes pre-loaded with the standard configuration. The Touch Tree operates according to the 
+            <a href="https://www.loxone.com/enen/smart-home/standards-and-recommendations/"><strong>Loxone Switch Standard</strong></a>.
+            The Presence Sensor Tree responds to movement according to the <a href="https://www.loxone.com/enus/kb/lighting-controller/"><strong>Lighting Controller</strong></a> moods.
+            The toggle switches turn the LED lights on and off, and the potentiometers activate and control the speed of the LED light strip movement.
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ====================================================
-       SECTION: USE CASES (2+ examples, alternating layout)
-       Duplicate a .lx-usecase block to add more. Add the
-       --flip modifier on alternating ones for the zig-zag look.
-       ==================================================== -->
-  <section class="lx-section lx-section--alt" id="use-cases">
-    <div class="lx-container">
-      <div class="mb-5">
-        <span class="lx-eyebrow">In practice</span>
-        <h2>Use case examples</h2>
-        <hr class="lx-rule">
-      </div>
+      <!-- Exercises -->
+      <h3 class="mt-5 mb-4">Try it yourself</h3>
 
-      <!-- USE CASE 1 -->
+      <!-- Exercise 1 -->
       <article class="lx-usecase">
         <div class="lx-usecase__media">
-          <!-- Replace with <img src="..." alt="..."> -->
-          <div class="lx-placeholder">Image / screenshot</div>
+          <div class="lx-ph">
+            <span class="lx-ph__icon">🎞</span>
+            <span class="lx-ph__type">GIF</span>
+            <span>Flipping a toggle switch — the LED responds.</span>
+          </div>
         </div>
         <div class="lx-usecase__copy">
-          <h3>Example one — a common scenario</h3>
-          <p>Describe a real situation a customer recognises, then show how the product solves it.</p>
-          <ul>
-            <li>Concrete benefit or result.</li>
-            <li>Another point worth calling out.</li>
-            <li>A third, if useful.</li>
-          </ul>
-          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#uc1more" aria-expanded="false" aria-controls="uc1more">
-            <span class="lx-chevron">›</span> How it's set up
+          <span class="lx-eyebrow">Exercise 1</span>
+          <h3>Switch on a light</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>See how an input controls an output.</div>
+          <ol class="lx-do">
+            <li>Flip a <strong>toggle switch</strong> and watch its LED turn on.</li>
+            <li>Flip it back — the LED turns off.</li>
+          </ol>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex1more" aria-expanded="false" aria-controls="ex1more">
+            <span class="lx-chevron">›</span> Why this works
           </button>
-          <div class="collapse lx-collapse-body" id="uc1more">
-            Optional deeper explanation of the configuration behind this use case.
+          <div class="collapse lx-collapse-body" id="ex1more">
+            Each toggle switch is wired to a <strong>digital output</strong>. Flipping it tells the
+            Miniserver to drive that LED — the simplest input → output link.
           </div>
         </div>
       </article>
 
-      <!-- USE CASE 2 (flipped) -->
+      <!-- Exercise 2 (flipped) -->
       <article class="lx-usecase lx-usecase--flip">
         <div class="lx-usecase__media">
-          <div class="lx-placeholder">Image / screenshot</div>
+          <div class="lx-ph">
+            <span class="lx-ph__icon">🎞</span>
+            <span class="lx-ph__type">GIF</span>
+            <span>Turning the potentiometer — chase light speeds up.</span>
+          </div>
         </div>
         <div class="lx-usecase__copy">
-          <h3>Example two — a different scenario</h3>
-          <p>A second, contrasting example so readers can map their own situation onto one of them.</p>
-          <ul>
-            <li>Benefit specific to this case.</li>
-            <li>Another relevant point.</li>
-          </ul>
+          <span class="lx-eyebrow">Exercise 2</span>
+          <h3>Start the chase light &amp; change its speed</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>See an analog input shape behavior.</div>
+          <ol class="lx-do">
+            <li>Turn the <strong>potentiometer</strong> — a running light starts across LED 1–8.</li>
+            <li>Turn it further — the chase speeds up or slows down.</li>
+          </ol>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex2more" aria-expanded="false" aria-controls="ex2more">
+            <span class="lx-chevron">›</span> Why this works
+          </button>
+          <div class="collapse lx-collapse-body" id="ex2more">
+            The potentiometer is an <strong>analog input</strong> — instead of just on/off, it sends a
+            range of values. Here that value sets the speed of the running-light function.
+          </div>
         </div>
       </article>
+
+      <!-- Exercise 3 -->
+      <article class="lx-usecase">
+        <div class="lx-usecase__media">
+          <div class="lx-ph">
+            <span class="lx-ph__icon">🎞</span>
+            <span class="lx-ph__type">GIF</span>
+            <span>Motion near the sensor — lights react on their own.</span>
+          </div>
+        </div>
+        <div class="lx-usecase__copy">
+          <span class="lx-eyebrow">Exercise 3</span>
+          <h3>Walk by and watch it react</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>See a sensor automate the case — no button needed.</div>
+          <ol class="lx-do">
+            <li>Move in front of the <strong>Presence Sensor Tree</strong>.</li>
+            <li>The stored light mood activates automatically.</li>
+          </ol>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex3more" aria-expanded="false" aria-controls="ex3more">
+            <span class="lx-chevron">›</span> Why this works &amp; a bonus
+          </button>
+          <div class="collapse lx-collapse-body" id="ex3more">
+            The presence sensor is an input too — motion triggers a pre-programmed scene.
+            <strong>Bonus:</strong> open the <strong>window contact</strong> and watch <strong>LED 8</strong>
+            (Digital Output 8) switch in response.
+          </div>
+        </div>
+      </article>
+
+      <div class="lx-recap mt-4">
+        <span class="lx-recap__check">✓</span>
+        <p><strong>What you've learned:</strong> inputs (switches, potentiometer, sensor, contact) drive
+        outputs (LEDs) through the Miniserver. That's automation in miniature.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lx-section lx-section--alt" id="part2">
+    <div class="lx-container">
+      <span class="lx-eyebrow">Part 2 of 3</span>
+      <h2>Control using the Loxone App <span class="lx-time">~10 min</span></h2>
+      <hr class="lx-rule">
+      <p class="lx-lead mb-5" style="max-width:720px;">
+        Connect to the Sample Case from your mobile device or browser using the Loxone App to control it remotely.
+      </p>
+
+      <!-- STEP 1 -->
+      <div class="lx-step">
+        <div class="lx-step__num">1</div>
+        <div class="lx-step__body">
+          <h4>Install</h4>
+          <h3>Install the Loxone app</h3>
+          <p>Get the <a href="https://www.loxone.com/enus/products/apps/"><strong>free Loxone App</strong></a> for your mobile device.
+          Open it → <strong>Search WLAN</strong> →
+          choose the Miniserver named <strong><code>Lx</code> + the last 4 digits of the serial</strong> →
+          log in with <strong>admin / admin</strong>.</p>
+          <div class="lx-ph mt-3" style="max-width:520px;">
+            <span class="lx-ph__icon">📷</span>
+            <span class="lx-ph__type">Screenshot</span>
+            <span>App "Search WLAN" / Miniserver selection screen.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="lx-step">
+        <div class="lx-step__num">2</div>
+        <div class="lx-step__body">
+          <h4>Connect</h4>
+          <h3>Join the case WiFi</h3>
+          <p>On your phone or PC, find the WiFi network named after the case <strong>serial number</strong>
+          (it starts with <code>504F94…</code>), printed on the <strong>white sticker inside the case</strong>. Connect to it.</p>
+          <div class="lx-ph mt-3" style="max-width:520px;">
+            <span class="lx-ph__icon">📷</span>
+            <span class="lx-ph__type">Screenshot</span>
+            <span>WiFi list showing the 504F94… network.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="lx-step">
+        <div class="lx-step__num">3</div>
+        <div class="lx-step__body">
+          <h4>Browser</h4>
+          <h3>Or control it with no install</h3>
+          <p>In any browser, go to <strong><code>http://MS</code> + the last 4 digits of the serial</strong>
+          (e.g. <code>http://MS00FF/</code>) and log in with <strong>admin / admin</strong>.</p>
+          <div class="lx-goal" style="max-width:560px;"><strong>Heads up</strong><br>
+            The default login is <code>admin</code> / <code>admin</code>. Change it later for anything beyond the sample case.</div>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#p2more" aria-expanded="false" aria-controls="p2more">
+            <span class="lx-chevron">›</span> What's the visualization?
+          </button>
+          <div class="collapse lx-collapse-body" id="p2more">
+            The screen you see in the app and browser is the <strong>visualization</strong> — it mirrors the
+            case. Every on-screen control maps to a real device, and updates live as things change.
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercises -->
+      <h3 class="mt-5 mb-4">Try it yourself</h3>
+
+      <!-- Exercise 4 -->
+      <article class="lx-usecase">
+        <div class="lx-usecase__media">
+          <div class="lx-ph">
+            <span class="lx-ph__icon">🎞</span>
+            <span class="lx-ph__type">GIF</span>
+            <span>Tapping an app control — the real LED reacts.</span>
+          </div>
+        </div>
+        <div class="lx-usecase__copy">
+          <span class="lx-eyebrow">Exercise 4</span>
+          <h3>Toggle a light from the app</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>Control and live visualization, in sync.</div>
+          <ol class="lx-do">
+            <li>Tap a light control in the app.</li>
+            <li>Watch the matching <strong>physical LED</strong> change — and the on-screen state update too.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- Exercise 5 (flipped) -->
+      <article class="lx-usecase lx-usecase--flip">
+        <div class="lx-usecase__media">
+          <div class="lx-ph">
+            <span class="lx-ph__icon">📷</span>
+            <span class="lx-ph__type">Screenshot</span>
+            <span>Browser visualization controlling the case.</span>
+          </div>
+        </div>
+        <div class="lx-usecase__copy">
+          <span class="lx-eyebrow">Exercise 5</span>
+          <h3>Do the same from the browser</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>Control from any device — nothing to install.</div>
+          <ol class="lx-do">
+            <li>Open the browser visualization (Step 3 above).</li>
+            <li>Repeat Exercise 4 from there.</li>
+          </ol>
+        </div>
+      </article>
+
+      <div class="lx-recap mt-4">
+        <span class="lx-recap__check">✓</span>
+        <p><strong>What you've learned:</strong> the same Miniserver is reachable from app and browser,
+        and the visualization always stays in sync with the hardware.</p>
+      </div>
     </div>
   </section>
 
   <!-- ====================================================
-       SECTION: FAQ (Bootstrap accordion = collapsible text blocks)
+       PART 3 — LOXONE CONFIG
        ==================================================== -->
-  <section class="lx-section" id="faq">
+  <section class="lx-section" id="part3">
+    <div class="lx-container">
+      <span class="lx-eyebrow">Part 3 of 3</span>
+      <h2>Make it your own in Loxone Config <span class="lx-time">· ~10–15 min</span></h2>
+      <hr class="lx-rule">
+      <p class="lx-lead mb-5" style="max-width:720px;">
+        Connect with the configuration software, load the program, change something, test it, and save it back.
+      </p>
+
+      <!-- STEP 1 -->
+      <div class="lx-step">
+        <div class="lx-step__num">1</div>
+        <div class="lx-step__body">
+          <h4>Install</h4>
+          <h3>Download Loxone Config</h3>
+          <p>Get <strong>Loxone Config</strong>, the free configuration software for Windows, and install it.</p>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="lx-step">
+        <div class="lx-step__num">2</div>
+        <div class="lx-step__body">
+          <h4>Connect</h4>
+          <h3>Search &amp; connect to the Miniserver</h3>
+          <p>Open Config → <strong>Miniserver</strong> tab → <strong>Search</strong>. The case's Miniserver and its
+          extensions appear. Double-click it (or click <strong>Connect</strong>) and log in with <strong>admin / admin</strong>.
+          The <strong>top status bar turns green</strong> when you're connected.</p>
+          <div class="lx-ph mt-3" style="max-width:520px;">
+            <span class="lx-ph__icon">📷</span>
+            <span class="lx-ph__type">Screenshot</span>
+            <span>Miniserver tab — Search results + green status bar.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="lx-step">
+        <div class="lx-step__num">3</div>
+        <div class="lx-step__body">
+          <h4>Load</h4>
+          <h3>Load the program from the Miniserver</h3>
+          <p>Go to the <strong>My Project</strong> tab → <strong>Load from Miniserver</strong>.</p>
+          <div class="lx-goal" style="max-width:560px;"><strong>Tip</strong><br>
+            Before changing anything, save a <strong>local backup</strong> so you can always restore the factory
+            program. (It's also downloadable as the "Demo-Case" file.)</div>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#p3more" aria-expanded="false" aria-controls="p3more">
+            <span class="lx-chevron">›</span> The three tabs you'll use
+          </button>
+          <div class="collapse lx-collapse-body" id="p3more">
+            <strong>Miniserver</strong> — find and connect. <strong>My Project</strong> — load and save your program.
+            <strong>Test</strong> — watch the program run live while you flip real switches.
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercises -->
+      <h3 class="mt-5 mb-4">Try it yourself</h3>
+
+      <!-- Exercise 6 -->
+      <article class="lx-usecase">
+        <div class="lx-usecase__media">
+          <div class="lx-ph">
+            <span class="lx-ph__icon">📷</span>
+            <span class="lx-ph__type">Screenshot</span>
+            <span>The switch → LED block, annotated 1 · 2 · 3.</span>
+          </div>
+        </div>
+        <div class="lx-usecase__copy">
+          <span class="lx-eyebrow">Exercise 6</span>
+          <h3>Read the existing logic</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>Learn to read what's already there.</div>
+          <ol class="lx-do">
+            <li>Find the block where a toggle <strong>switch input</strong> connects to its <strong>LED output</strong>.</li>
+            <li>Switch to the <strong>Test</strong> tab and flip the real switch — watch the value change live.</li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- Exercise 7 (flipped) -->
+      <article class="lx-usecase lx-usecase--flip">
+        <div class="lx-usecase__media">
+          <div class="lx-ph">
+            <span class="lx-ph__icon">🎞</span>
+            <span class="lx-ph__type">GIF</span>
+            <span>Adding a block, testing, saving — LED behaves differently.</span>
+          </div>
+        </div>
+        <div class="lx-usecase__copy">
+          <span class="lx-eyebrow">Exercise 7</span>
+          <h3>Make one change &amp; save it</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>The edit → test → deploy loop.</div>
+          <ol class="lx-do">
+            <li>Add a simple timing function — e.g. an <strong>off-delay / stairwell light</strong> so an LED stays on a few seconds, then turns off.</li>
+            <li><strong>Test</strong> it, then <strong>My Project → Save to Miniserver</strong>.</li>
+            <li>Flip the real switch and watch your change in action.</li>
+          </ol>
+          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex7more" aria-expanded="false" aria-controls="ex7more">
+            <span class="lx-chevron">›</span> Challenge: build your own scene
+          </button>
+          <div class="collapse lx-collapse-body" id="ex7more">
+            Using only components already in the case, create one new behavior — for example, have the
+            presence sensor also start the chase light. Test, save, done.
+          </div>
+        </div>
+      </article>
+
+      <div class="lx-recap mt-4">
+        <span class="lx-recap__check">✓</span>
+        <p><strong>What you've learned:</strong> you can connect, read the program, change it safely
+        (with a backup), test, and deploy — the core Loxone workflow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       SECTION: FAQ
+       ==================================================== -->
+  <section class="lx-section lx-section--alt" id="faq">
     <div class="lx-container" style="max-width:840px;">
       <div class="text-center mb-5">
         <span class="lx-eyebrow">Good to know</span>
@@ -463,33 +736,66 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <div class="accordion-item">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-              First question goes here?
+              The LEDs aren't all green / nothing happens.
             </button>
           </h3>
           <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">Answer to the first question.</div>
+            <div class="accordion-body">Re-seat the power adapter and give it a few seconds. When the case is ready, all LEDs blink green.</div>
           </div>
         </div>
 
         <div class="accordion-item">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-              Second question goes here?
+              I can't find the case WiFi.
             </button>
           </h3>
           <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">Answer to the second question.</div>
+            <div class="accordion-body">Look for the network named after the serial number, starting with <code>504F94…</code>. It's on the white sticker inside the case.</div>
           </div>
         </div>
 
         <div class="accordion-item">
           <h3 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-              Third question goes here?
+              admin / admin doesn't work.
             </button>
           </h3>
           <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">Answer to the third question.</div>
+            <div class="accordion-body">That's the factory default. If it was changed, restore the factory program (the Demo-Case file) or reset the Miniserver per the support docs.</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+              Loxone Config can't find the Miniserver.
+            </button>
+          </h3>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Make sure your PC is connected to the case WiFi, then use Search again in the Miniserver tab.</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+              How do I get the original programming back?
+            </button>
+          </h3>
+          <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Load the local backup you saved before editing, or download the Demo-Case factory program and save it to the Miniserver.</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+              Do I need internet?
+            </button>
+          </h3>
+          <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Not for local control. To try the Weather and Caller online services, register the Miniserver at loxone.com — free for 30 days.</div>
           </div>
         </div>
       </div>
@@ -499,33 +805,36 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
   <!-- ====================================================
        SECTION: RESOURCES / NEXT STEPS
        ==================================================== -->
-  <section class="lx-section lx-section--alt" id="resources">
+  <section class="lx-section" id="resources">
     <div class="lx-container">
       <div class="mb-5">
         <span class="lx-eyebrow">Keep going</span>
-        <h2>Resources &amp; next steps</h2>
+        <h2>Next steps</h2>
         <hr class="lx-rule">
+        <p class="lx-lead" style="max-width:720px;">
+          Thank you for getting started — you've gone from a sealed case to editing live automation in about half an hour.
+        </p>
       </div>
 
       <div class="row g-4">
         <div class="col-md-4">
           <div class="lx-card">
             <h4>Documentation</h4>
-            <p class="text-muted mb-3">Deep-dive reference for every feature.</p>
+            <p class="text-muted mb-3">The full Loxone Knowledge Base — deep-dive reference for every device.</p>
             <a href="#">Open the docs →</a>
           </div>
         </div>
         <div class="col-md-4">
           <div class="lx-card">
             <h4>Video tutorials</h4>
-            <p class="text-muted mb-3">Short, focused walkthroughs.</p>
+            <p class="text-muted mb-3">Short, focused walkthroughs for your next projects.</p>
             <a href="#">Watch tutorials →</a>
           </div>
         </div>
         <div class="col-md-4">
           <div class="lx-card">
             <h4>Talk to support</h4>
-            <p class="text-muted mb-3">Get help from a real person.</p>
+            <p class="text-muted mb-3">Stuck on something? Get help from a real person.</p>
             <a href="#">Contact us →</a>
           </div>
         </div>
