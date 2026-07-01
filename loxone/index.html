@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loxone Sample Case Quick Start Guide</title>
+<title>Loxone Demo Case Quick Start Guide</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -289,19 +289,19 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
 <main>
   <section class="lx-section lx-hero" id="overview">
     <div class="lx-container">
-      <span class="lx-eyebrow">Loxone Sample Case · Quick Start Guide</span>
+      <span class="lx-eyebrow">Loxone Demo Case · Quick Start Guide</span>
       <h1>Get started with Loxone in 30 minutes or less</h1>
       <hr class="lx-rule">
 
-      <h2 class="lx-lead" style="color: var(--brand)"><strong>Thank you for purchasing the Loxone Sample Case and welcome to Loxone!</strong></h2>
+      <h2 class="lx-lead" style="color: var(--brand)"><strong>Thank you for purchasing the Loxone Demo Case and welcome to Loxone!</strong></h2>
       <p class="lx-lead">
-        The Sample Case is your introduction to the basics of Loxone 
+        The Demo Case is your introduction to the basics of Loxone 
         hardware and software.<br>By the end of this guide you will have successfully:
       </p>
       <ul>
-        <li>Connected and powered on your Loxone Sample Case</li>
+        <li>Connected and powered on your Loxone Demo Case</li>
         <li>Tested the basic functionality of the Touch Tree, Presence Sensor Tree, and the RGBW 24V Dimmer Tree</li>
-        <li>Connected to the Loxone Sample Case with the Loxone App and Loxone Config</li>
+        <li>Connected to the Loxone Demo Case with the Loxone App and Loxone Config</li>
         <li>Understood how to control the Miniserver and Tree elements manually, with the <a href="https://www.loxone.com/enus/products/apps/">
         <strong>Loxone App</strong></a>, and with <a href="https://www.loxone.com/enus/products/loxone-config/"><strong>Loxone Config</strong></a></li>
       </ul>
@@ -318,10 +318,10 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <span class="lx-badge">✓ No prior experience needed</span>
       </div>
 
-      <div class="d-flex flex-wrap gap-3 mt-4">
+      <!-- <div class="d-flex flex-wrap gap-3 mt-4">
         <a href="#part1" class="btn btn-brand">Start with Part 1</a>
         <a href="#video" class="btn btn-outline-brand">Watch the tour</a>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -329,7 +329,7 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
     <div class="lx-container">
       <div class="text-center mb-4">
         <span class="lx-eyebrow">Watch first</span>
-        <h2>Unboxing &amp; 90-second tour</h2>
+        <h2>What comes in the Demo Case?</h2>
       </div>
 
       <figure class="lx-video">
@@ -339,7 +339,7 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
           <span class="lx-ph__type">Video</span>
           <span>Unboxing &amp; overview - approx. 90 sec.<br>Drop your YouTube/Vimeo embed or MP4 here.</span>
         </div>
-        <figcaption>What's inside the sample case and what you can do with it.</figcaption>
+        <figcaption>What's inside the demo case and what you can do with it.</figcaption>
       </figure>
     </div>
   </section>
@@ -350,7 +350,7 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
       <h2>Power on and test <span class="lx-time">~10 min</span></h2>
       <hr class="lx-rule">
       <p class="lx-lead mb-5" style="max-width:720px;">
-        Get the Sample Case up and running and start using the Tree devices right away, before touching any software.
+        Get the Demo Case up and running and start using the Tree devices right away, before touching any software.
       </p>
 
       <!-- STEP 1 -->
@@ -370,11 +370,11 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
           <h4>Verify</h4>
           <h3>Wait for green lights</h3>
           <p>The Miniserver boots automatically. The case is ready when <strong>all LEDs blink green</strong>, which takes just a few seconds.</p>
-          <div class="lx-ph mt-3" style="max-width:520px;">
+          <!-- <div class="lx-ph mt-3" style="max-width:520px;">
             <span class="lx-ph__icon">📷</span>
             <span class="lx-ph__type">Screenshot / photo</span>
             <span>Back of the case: power socket + LEDs blinking green.</span>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -392,7 +392,7 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
             The Miniserver comes pre-loaded with the standard configuration. The Touch Tree operates according to the 
             <a href="https://www.loxone.com/enen/smart-home/standards-and-recommendations/"><strong>Loxone Switch Standard</strong></a>.
             The Presence Sensor Tree responds to movement according to the <a href="https://www.loxone.com/enus/kb/lighting-controller/"><strong>Lighting Controller</strong></a> moods.
-            The toggle switches turn the LED lights on and off, and the potentiometers activate and control the speed of the LED light strip movement.
+            The toggle switches turn the LED lights on and off, and the potentiometer activates and controls the rate of the pulse generater for the digital output light sequencer.
           </div>
         </div>
       </div>
@@ -400,92 +400,51 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
       <!-- Exercises -->
       <h3 class="mt-5 mb-4">Try it yourself</h3>
 
-      <!-- Exercise 1 -->
-      <article class="lx-usecase">
-        <div class="lx-usecase__media">
-          <div class="lx-ph">
-            <span class="lx-ph__icon">🎞</span>
-            <span class="lx-ph__type">GIF</span>
-            <span>Flipping a toggle switch — the LED responds.</span>
-          </div>
-        </div>
+      <!-- Exercises 1 and 2 -->
+      <article class="lx-usecase lx-usecase--flip">
         <div class="lx-usecase__copy">
           <span class="lx-eyebrow">Exercise 1</span>
-          <h3>Switch on a light</h3>
-          <div class="lx-goal"><strong>Goal</strong><br>See how an input controls an output.</div>
+          <h3>Turn on the LED light strip</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>See how the Touch and RGBW Trees function.</div>
           <ol class="lx-do">
-            <li>Flip a <strong>toggle switch</strong> and watch its LED turn on.</li>
-            <li>Flip it back — the LED turns off.</li>
+            <li>Touch the center of the <strong>Touch Tree</strong> listen for the click sound and watch the LED strip light up red.</li>
+            <li>Touch the center of the Touch Tree again to toggle through the remaining 3 lighting moods.</li>
+            <li>Single or double touch the Touch Tree to switch off the LED strip.</li>
           </ol>
           <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex1more" aria-expanded="false" aria-controls="ex1more">
             <span class="lx-chevron">›</span> Why this works
           </button>
           <div class="collapse lx-collapse-body" id="ex1more">
-            Each toggle switch is wired to a <strong>digital output</strong>. Flipping it tells the
-            Miniserver to drive that LED — the simplest input → output link.
-          </div>
-        </div>
-      </article>
-
-      <!-- Exercise 2 (flipped) -->
-      <article class="lx-usecase lx-usecase--flip">
-        <div class="lx-usecase__media">
-          <div class="lx-ph">
-            <span class="lx-ph__icon">🎞</span>
-            <span class="lx-ph__type">GIF</span>
-            <span>Turning the potentiometer — chase light speeds up.</span>
+            The center of the <strong>Touch Tree</strong> switch turns the connected LED strip on, toggles through the pre-configured lighting
+            moods, and then turns the LED strip off. A double touch of the Touch Tree will turn off the LED strip regardless
+            of which mood is currently selected. The Miniserver comes configured with a Lighting Controller function block
+            that includes 4 lighting moods (Red, Green, Blue, Bright) followed by Off.
           </div>
         </div>
         <div class="lx-usecase__copy">
           <span class="lx-eyebrow">Exercise 2</span>
-          <h3>Start the chase light &amp; change its speed</h3>
-          <div class="lx-goal"><strong>Goal</strong><br>See an analog input shape behavior.</div>
+          <h3>Toggle the digital output lights on and off</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>See how digital inputs control digital outputs.</div>
           <ol class="lx-do">
-            <li>Turn the <strong>potentiometer</strong> — a running light starts across LED 1–8.</li>
-            <li>Turn it further — the chase speeds up or slows down.</li>
+            <li>Flip one of the 7 <strong>toggle switches</strong> connected to the digital inputs and watch its LED turn on.</li>
+            <li>The toggle switches function as both a momentary (down position) and latch (up position) switch.</li>
+            <li>Close the window contact sensor to switch on the Q8 digital output light.</li>
           </ol>
           <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex2more" aria-expanded="false" aria-controls="ex2more">
             <span class="lx-chevron">›</span> Why this works
           </button>
           <div class="collapse lx-collapse-body" id="ex2more">
-            The potentiometer is an <strong>analog input</strong> — instead of just on/off, it sends a
-            range of values. Here that value sets the speed of the running-light function.
-          </div>
-        </div>
-      </article>
-
-      <!-- Exercise 3 -->
-      <article class="lx-usecase">
-        <div class="lx-usecase__media">
-          <div class="lx-ph">
-            <span class="lx-ph__icon">🎞</span>
-            <span class="lx-ph__type">GIF</span>
-            <span>Motion near the sensor — lights react on their own.</span>
-          </div>
-        </div>
-        <div class="lx-usecase__copy">
-          <span class="lx-eyebrow">Exercise 3</span>
-          <h3>Walk by and watch it react</h3>
-          <div class="lx-goal"><strong>Goal</strong><br>See a sensor automate the case — no button needed.</div>
-          <ol class="lx-do">
-            <li>Move in front of the <strong>Presence Sensor Tree</strong>.</li>
-            <li>The stored light mood activates automatically.</li>
-          </ol>
-          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex3more" aria-expanded="false" aria-controls="ex3more">
-            <span class="lx-chevron">›</span> Why this works &amp; a bonus
-          </button>
-          <div class="collapse lx-collapse-body" id="ex3more">
-            The presence sensor is an input too — motion triggers a pre-programmed scene.
-            <strong>Bonus:</strong> open the <strong>window contact</strong> and watch <strong>LED 8</strong>
-            (Digital Output 8) switch in response.
+            Each digital input toggle switch is wired to a digital output. Flipping the switch tells the
+            Miniserver to drive digital output LED according to the configuration. This demonstrates the potential functionality
+            of digital switch inputs and outputs.
           </div>
         </div>
       </article>
 
       <div class="lx-recap mt-4">
         <span class="lx-recap__check">✓</span>
-        <p><strong>What you've learned:</strong> inputs (switches, potentiometer, sensor, contact) drive
-        outputs (LEDs) through the Miniserver. That's automation in miniature.</p>
+        <p><strong>What you've learned:</strong> the basics of Touch and RGBW Tree functionality, how digital and analogue inputs 
+          (switches, potentiometers, sensors) can drive digital outputs (LEDs) through the Miniserver.</p>
       </div>
     </div>
   </section>
@@ -493,10 +452,10 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
   <section class="lx-section lx-section--alt" id="part2">
     <div class="lx-container">
       <span class="lx-eyebrow">Part 2 of 3</span>
-      <h2>Control using the Loxone App <span class="lx-time">~10 min</span></h2>
+      <h2>Control Miniserver using the Loxone App <span class="lx-time">~10 min</span></h2>
       <hr class="lx-rule">
       <p class="lx-lead mb-5" style="max-width:720px;">
-        Connect to the Sample Case from your mobile device or browser using the Loxone App to control it remotely.
+        Connect to the Demo Case Miniserver from your mobile device or browser using the Loxone App to control it remotely.
       </p>
 
       <!-- STEP 1 -->
@@ -505,15 +464,15 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <div class="lx-step__body">
           <h4>Install</h4>
           <h3>Install the Loxone app</h3>
-          <p>Get the <a href="https://www.loxone.com/enus/products/apps/"><strong>free Loxone App</strong></a> for your mobile device.
-          Open it → <strong>Search WLAN</strong> →
+          <p>Download and install the <a href="https://www.loxone.com/enus/products/apps/"><strong>free Loxone App</strong></a> for your mobile device.
+          <!-- Open it → <strong>Search WLAN</strong> →
           choose the Miniserver named <strong><code>Lx</code> + the last 4 digits of the serial</strong> →
-          log in with <strong>admin / admin</strong>.</p>
-          <div class="lx-ph mt-3" style="max-width:520px;">
+          log in with <strong>admin / admin</strong>.</p> -->
+          <!-- <div class="lx-ph mt-3" style="max-width:520px;">
             <span class="lx-ph__icon">📷</span>
             <span class="lx-ph__type">Screenshot</span>
             <span>App "Search WLAN" / Miniserver selection screen.</span>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -522,14 +481,10 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <div class="lx-step__num">2</div>
         <div class="lx-step__body">
           <h4>Connect</h4>
-          <h3>Join the case WiFi</h3>
+          <h3>Join the Demo Case WiFi</h3>
           <p>On your phone or PC, find the WiFi network named after the case <strong>serial number</strong>
           (it starts with <code>504F94…</code>), printed on the <strong>white sticker inside the case</strong>. Connect to it.</p>
-          <div class="lx-ph mt-3" style="max-width:520px;">
-            <span class="lx-ph__icon">📷</span>
-            <span class="lx-ph__type">Screenshot</span>
-            <span>WiFi list showing the 504F94… network.</span>
-          </div>
+          <img style= "background-color: white;" src="https://paulsultana.com/loxone/assets/miniserverwifi.png" alt="Miniserver Wifi Sticker">
         </div>
       </div>
 
@@ -537,18 +492,25 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
       <div class="lx-step">
         <div class="lx-step__num">3</div>
         <div class="lx-step__body">
-          <h4>Browser</h4>
-          <h3>Or control it with no install</h3>
-          <p>In any browser, go to <strong><code>http://MS</code> + the last 4 digits of the serial</strong>
+          <h4>Control</h4>
+          <h3>Use the Loxone App on mobile device or browser</h3>
+          <p>In the Loxone App on your mobile device click <strong>Add Miniserver</strong> and then click <strong>Search</strong>
+            to find your Demo Case and connect using <strong>admin / admin</strong> as the username and password.
+          Or click <strong>Add Manually</strong> and type the S/N of the Miniserver (same as WiFi network)
+          click <strong>Connect</strong> to connect to the Demo Case Miniserver.</p>
+          <p>Or, in any browser, go to <strong><code>http://MS</code> + the last 4 digits of the serial number</strong>
           (e.g. <code>http://MS00FF/</code>) and log in with <strong>admin / admin</strong>.</p>
-          <div class="lx-goal" style="max-width:560px;"><strong>Heads up</strong><br>
-            The default login is <code>admin</code> / <code>admin</code>. Change it later for anything beyond the sample case.</div>
+          <div class="lx-goal" style="max-width:560px;"><strong>Important</strong><br>
+            The default login is <code>admin</code> / <code>admin</code>. We recommend that you change it after you log in for the first time..</div>
           <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#p2more" aria-expanded="false" aria-controls="p2more">
-            <span class="lx-chevron">›</span> What's the visualization?
+            <span class="lx-chevron">›</span> What can you do in the Loxone App?
           </button>
           <div class="collapse lx-collapse-body" id="p2more">
-            The screen you see in the app and browser is the <strong>visualization</strong> — it mirrors the
-            case. Every on-screen control maps to a real device, and updates live as things change.
+            The Loxone App gives you a clean, user friendly visualization of the Miniserver settings and controls.
+            It mirrors the Miniserver in real time and also sends you alerts with notifications.
+            Every on-screen control maps to a real device, and updates live as things change. 
+            The Demo Case room in the Loxone App let's you control the LED strip lighting by selecting a pre-configured mood 
+            or manually adjusting the color and brightness.
           </div>
         </div>
       </div>
@@ -556,64 +518,47 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
       <!-- Exercises -->
       <h3 class="mt-5 mb-4">Try it yourself</h3>
 
-      <!-- Exercise 4 -->
-      <article class="lx-usecase">
-        <div class="lx-usecase__media">
-          <div class="lx-ph">
-            <span class="lx-ph__icon">🎞</span>
-            <span class="lx-ph__type">GIF</span>
-            <span>Tapping an app control — the real LED reacts.</span>
-          </div>
+      <!-- Exercises 3 and 4-->
+      <article class="lx-usecase lx-usecase--flip">
+        <div class="lx-usecase__copy">
+          <span class="lx-eyebrow">Exercise 3</span>
+          <h3>Toggle a light from the app</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>Control LED strip with live visualization in app.</div>
+          <ol class="lx-do">
+            <li>Make sure you phone is connected to the Demo Case WiFi.</li>
+            <li>Open the Loxone App and navigate to the Rooms screen and select the <strong>Demo Case</strong> room.</li>
+            <li>Turn on the LED strip with the switch in the Loxone App and watch the LED strip light up.</li>
+            <li>Select a different mood and customize the color and brightness of the LED strip.</li>
+          </ol>
         </div>
         <div class="lx-usecase__copy">
           <span class="lx-eyebrow">Exercise 4</span>
-          <h3>Toggle a light from the app</h3>
-          <div class="lx-goal"><strong>Goal</strong><br>Control and live visualization, in sync.</div>
-          <ol class="lx-do">
-            <li>Tap a light control in the app.</li>
-            <li>Watch the matching <strong>physical LED</strong> change — and the on-screen state update too.</li>
-          </ol>
-        </div>
-      </article>
-
-      <!-- Exercise 5 (flipped) -->
-      <article class="lx-usecase lx-usecase--flip">
-        <div class="lx-usecase__media">
-          <div class="lx-ph">
-            <span class="lx-ph__icon">📷</span>
-            <span class="lx-ph__type">Screenshot</span>
-            <span>Browser visualization controlling the case.</span>
-          </div>
-        </div>
-        <div class="lx-usecase__copy">
-          <span class="lx-eyebrow">Exercise 5</span>
           <h3>Do the same from the browser</h3>
-          <div class="lx-goal"><strong>Goal</strong><br>Control from any device — nothing to install.</div>
+          <div class="lx-goal"><strong>Goal</strong><br>Control from any device without installation.</div>
           <ol class="lx-do">
-            <li>Open the browser visualization (Step 3 above).</li>
-            <li>Repeat Exercise 4 from there.</li>
+            <li>Make sure you computer is connected to the Demo Case WiFi.</li>
+            <li>Open any browser and navigate to http://MS + last 4 digits of S/N.</li>
+            <li>Repeat steps from Exercise 4.</li>
           </ol>
         </div>
       </article>
 
       <div class="lx-recap mt-4">
         <span class="lx-recap__check">✓</span>
-        <p><strong>What you've learned:</strong> the same Miniserver is reachable from app and browser,
-        and the visualization always stays in sync with the hardware.</p>
+        <p><strong>What you've learned:</strong> the same Miniserver is reachable from the Loxone App on a mobile device
+        and in any browser. You can control the miniserver live in a clean and user friendly control panel.</p>
       </div>
     </div>
   </section>
 
-  <!-- ====================================================
-       PART 3 — LOXONE CONFIG
-       ==================================================== -->
   <section class="lx-section" id="part3">
     <div class="lx-container">
       <span class="lx-eyebrow">Part 3 of 3</span>
-      <h2>Make it your own in Loxone Config <span class="lx-time">· ~10–15 min</span></h2>
+      <h2>Make it your own in Loxone Config <span class="lx-time">~10–15 min</span></h2>
       <hr class="lx-rule">
       <p class="lx-lead mb-5" style="max-width:720px;">
-        Connect with the configuration software, load the program, change something, test it, and save it back.
+        Connect to the Miniserver with the <a href="https://www.loxone.com/enen/support/downloads/"><strong>Loxone Config</strong></a>
+        , load the configuration, change something, test it, and save it back.
       </p>
 
       <!-- STEP 1 -->
@@ -622,7 +567,8 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <div class="lx-step__body">
           <h4>Install</h4>
           <h3>Download Loxone Config</h3>
-          <p>Get <strong>Loxone Config</strong>, the free configuration software for Windows, and install it.</p>
+          <p>Download <a href="https://www.loxone.com/enen/support/downloads/"><strong>Loxone Config</strong></a>, 
+          the free configuration software for Windows, and install it on your PC.</p>
         </div>
       </div>
 
@@ -632,14 +578,14 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <div class="lx-step__body">
           <h4>Connect</h4>
           <h3>Search &amp; connect to the Miniserver</h3>
-          <p>Open Config → <strong>Miniserver</strong> tab → <strong>Search</strong>. The case's Miniserver and its
-          extensions appear. Double-click it (or click <strong>Connect</strong>) and log in with <strong>admin / admin</strong>.
-          The <strong>top status bar turns green</strong> when you're connected.</p>
-          <div class="lx-ph mt-3" style="max-width:520px;">
-            <span class="lx-ph__icon">📷</span>
-            <span class="lx-ph__type">Screenshot</span>
-            <span>Miniserver tab — Search results + green status bar.</span>
-          </div>
+          <p>Connect to the Demo Case WiFi on your PC, just as you did in the previous part. 
+          Open Loxone Config and click on <strong>Search local network...</strong> under the <strong>Miniserver</strong>
+          section of the left sidebar navigation. Click on the <strong>Demo Case</strong> and use <strong>admin / admin</strong> as the user
+          name and password. Then click <strong>Connect</strong> to log in.</p>
+          <img style= "max-width: 1000px;" src="https://handymanpaul.cz/media/config1.png" alt="Loxone Config"><br>
+          <br><p>The top left status bar turns green and says <strong>Connected</strong> when the Miniserver is connected with
+          Loxone Config.</p>
+          <img style= "max-width: 1000px;" src="https://handymanpaul.cz/media/config2.png" alt="Loxone Config"><br>
         </div>
       </div>
 
@@ -649,16 +595,21 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <div class="lx-step__body">
           <h4>Load</h4>
           <h3>Load the program from the Miniserver</h3>
-          <p>Go to the <strong>My Project</strong> tab → <strong>Load from Miniserver</strong>.</p>
+          <p>The pre-configured program should automatically load from the Miniserver. If it does not, simply
+          click the <strong>Load program from Miniserver</strong> download button to load the program stored on the Miniserver.</p>
+          <img style= "max-width: 1000px;" src="https://handymanpaul.cz/media/config3.png" alt="Loxone Config"><br>
+          <br><p>Once you’ve tested and made any changes to your configuration, you can upload it onto your Demo Case Miniserver, 
+            by clicking the <strong>‘Save program in Miniserver’</strong> upload button.</p>
           <div class="lx-goal" style="max-width:560px;"><strong>Tip</strong><br>
-            Before changing anything, save a <strong>local backup</strong> so you can always restore the factory
-            program. (It's also downloadable as the "Demo-Case" file.)</div>
+            Before changing anything, we recommend that you save a <strong>local backup</strong> so you can always restore the factory
+            program. (You can download the factory program <a href="https://www.loxone.com/dede/wp-content/uploads/sites/2/2016/08/Demo-Case-1.zip"><strong>HERE</strong></a>.)</div>
           <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#p3more" aria-expanded="false" aria-controls="p3more">
-            <span class="lx-chevron">›</span> The three tabs you'll use
+            <span class="lx-chevron">›</span> A deeper dive into Loxone Config
           </button>
           <div class="collapse lx-collapse-body" id="p3more">
-            <strong>Miniserver</strong> — find and connect. <strong>My Project</strong> — load and save your program.
-            <strong>Test</strong> — watch the program run live while you flip real switches.
+            <p>For further information on using Loxone Config have a look at our documentation pages 
+            <a href="https://www.loxone.com/enen/kb/auto-configuration/"><strong>“Auto Configuration”</strong></a> and 
+            <a href="https://www.loxone.com/enen/kb/starting-a-configuration/"><strong>“How to create logic in Loxone Config”</strong></a>.</p>
           </div>
         </div>
       </div>
@@ -666,65 +617,30 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
       <!-- Exercises -->
       <h3 class="mt-5 mb-4">Try it yourself</h3>
 
-      <!-- Exercise 6 -->
-      <article class="lx-usecase">
-        <div class="lx-usecase__media">
-          <div class="lx-ph">
-            <span class="lx-ph__icon">📷</span>
-            <span class="lx-ph__type">Screenshot</span>
-            <span>The switch → LED block, annotated 1 · 2 · 3.</span>
-          </div>
-        </div>
-        <div class="lx-usecase__copy">
-          <span class="lx-eyebrow">Exercise 6</span>
-          <h3>Read the existing logic</h3>
-          <div class="lx-goal"><strong>Goal</strong><br>Learn to read what's already there.</div>
-          <ol class="lx-do">
-            <li>Find the block where a toggle <strong>switch input</strong> connects to its <strong>LED output</strong>.</li>
-            <li>Switch to the <strong>Test</strong> tab and flip the real switch — watch the value change live.</li>
-          </ol>
-        </div>
-      </article>
-
-      <!-- Exercise 7 (flipped) -->
+      <!-- Exercise 5 -->
       <article class="lx-usecase lx-usecase--flip">
-        <div class="lx-usecase__media">
-          <div class="lx-ph">
-            <span class="lx-ph__icon">🎞</span>
-            <span class="lx-ph__type">GIF</span>
-            <span>Adding a block, testing, saving — LED behaves differently.</span>
-          </div>
-        </div>
         <div class="lx-usecase__copy">
-          <span class="lx-eyebrow">Exercise 7</span>
-          <h3>Make one change &amp; save it</h3>
-          <div class="lx-goal"><strong>Goal</strong><br>The edit → test → deploy loop.</div>
+          <span class="lx-eyebrow">Exercise 5</span>
+          <h3>View live interactions</h3>
+          <div class="lx-goal"><strong>Goal</strong><br>See how the Miniserver and Loxone Config interact in real time.</div>
           <ol class="lx-do">
-            <li>Add a simple timing function — e.g. an <strong>off-delay / stairwell light</strong> so an LED stays on a few seconds, then turns off.</li>
-            <li><strong>Test</strong> it, then <strong>My Project → Save to Miniserver</strong>.</li>
-            <li>Flip the real switch and watch your change in action.</li>
+            <li>Once your Miniserver is connected to your Loxone Config, click on the Demo Case Miniserver icon in the Project Tree.</li>
+            <li>In the Demo Case page you should see a visualization of the Miniserver.</li>
+            <li>Click the <strong>Start LiveView with manual value adjustment</strong> button.</li>
+            <li>Toggle the digital input switches in the Demo Case and notice how the visualization changes to match the current settings.</li>
           </ol>
-          <button class="lx-collapse-toggle" data-bs-toggle="collapse" data-bs-target="#ex7more" aria-expanded="false" aria-controls="ex7more">
-            <span class="lx-chevron">›</span> Challenge: build your own scene
-          </button>
-          <div class="collapse lx-collapse-body" id="ex7more">
-            Using only components already in the case, create one new behavior — for example, have the
-            presence sensor also start the chase light. Test, save, done.
-          </div>
         </div>
       </article>
 
       <div class="lx-recap mt-4">
         <span class="lx-recap__check">✓</span>
-        <p><strong>What you've learned:</strong> you can connect, read the program, change it safely
-        (with a backup), test, and deploy — the core Loxone workflow.</p>
+        <p><strong>What you've learned:</strong> you can connect your Miniserver to Loxone Config, load the program,  
+        make changes with LiveView enabled, and upload any changes back to the Miniserver. This is the core workflow
+        of Loxone Config.</p>
       </div>
     </div>
   </section>
 
-  <!-- ====================================================
-       SECTION: FAQ
-       ==================================================== -->
   <section class="lx-section lx-section--alt" id="faq">
     <div class="lx-container" style="max-width:840px;">
       <div class="text-center mb-5">
@@ -802,9 +718,6 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
     </div>
   </section>
 
-  <!-- ====================================================
-       SECTION: RESOURCES / NEXT STEPS
-       ==================================================== -->
   <section class="lx-section" id="resources">
     <div class="lx-container">
       <div class="mb-5">
@@ -812,7 +725,8 @@ a:hover{ color:var(--brand-darker); text-decoration:underline; }
         <h2>Next steps</h2>
         <hr class="lx-rule">
         <p class="lx-lead" style="max-width:720px;">
-          Thank you for getting started — you've gone from a sealed case to editing live automation in about half an hour.
+          Thank you for getting started with Loxone! You've gone from opening the Demo Case to editing live automation in about half an hour. 
+          See the resources below to learn more about what Loxone can do for your automation needs.
         </p>
       </div>
 
