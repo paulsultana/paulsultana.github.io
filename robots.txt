@@ -25,4 +25,8 @@ Disallow: /
 User-agent: *
 Allow: /
 
+User-agent: *
+Disallow: /mynotes/
+Disallow: /loxone/
+
 Sitemap: https://paulsultana.com/sitemap.xml
