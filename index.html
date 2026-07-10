@@ -67,6 +67,23 @@
       text-align: center;
       padding-top: 5vh;
     }
+
+    .tool-nav {
+      margin-top: 0.4rem;      /* space ABOVE the nav — lower this to pull it up */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.35rem 1rem;       /* spacing between the links */
+      font-size: 0.8rem;       /* smaller nav text — lower this to shrink more */
+    }
+    .tool-nav a { font-size: inherit; }
+    
+    @media (max-width: 600px) {
+      .tool-nav {
+        margin-top: 0.2rem;    /* even tighter on mobile so the player can't sit over it */
+        font-size: 0.75rem;
+      }
+    }
     
   </style>
 
@@ -78,10 +95,10 @@
 <body>
   <div id="headertext">
     <p>Paul Sultana original music player</p>
-    <div>
+    <div class="tool-nav">
       <a href="/tuner">Tuner/Metronome</a>
-      <a href="/noise">Signal Generator</a>
-      <a href="/theory">Music Theory</a>
+      <a href="/noise">Signal</a>
+      <a href="/theory">Theory</a>
     </div>
   </div>
   <div id="app"></div>
