@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Grafana Customer Access</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles4.css" type="text/css" />
+</head>
+<body>
+<div class='page'><h1 class='title'>Grafana Customer Access</h1><br/><p>To add yourself to a customer&#39;s organization, simply run this command:</p><p></p><p><code>curl -X POST https://n8n-soc.wedos.global/webhook/grafana-add-viewer \</code><code></code></p><p><code>  -H &quot;Content-Type: application/json&quot; \</code><code></code></p><p><code>  -d &#39;{&quot;wgp_id&quot;: &quot;wgp415167&quot;}&#39;</code></p><p></p><p>Just replace wgp415167 with the customer&#39;s WGP ID. After that, log in to Grafana and switch to their organization using the org switcher in the top left corner.</p></div>
+</body>
+</html>

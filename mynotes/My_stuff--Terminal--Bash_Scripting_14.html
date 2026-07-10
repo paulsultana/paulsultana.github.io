@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Bash Scripting</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles4.css" type="text/css" />
+</head>
+<body>
+<div class='page'><h1 class='title'>Bash Scripting</h1><br/><p><h2>Filtering IPs with Ping Response</h2></p><p>Script:</p><p><code>#!/bin/bash</code><code></code></p><p><code></code><code></code></p><p><code>for ip in `seq 1 254`; do </code><code></code></p><p><code>ping -c 1 $1.$ip | grep &quot;64 bytes&quot; | cut -d &quot; &quot; -f 4 | tr -d &quot;:&quot; &amp;</code><code></code></p><p><code>done</code></p><p></p><p>the for loop creates a variable (ip) and then loops through a sequence 255 times (for full IP range)</p><p>then for each IP it pings one time based on the user input (first part of IP 111.111.111.) and searches for line starting with “64 bytes&quot;</p><p>the results are cut up by spaces delimiter and the 4th field is returned, then the colon is deleted</p><p></p><p>*can replace &amp; with ; to make output list in order not randomly</p><p></p><p>*before executing script you need to change its mode to executable using <code>chmod +x ipsweep.sh</code> then it will change to green when you <code>ls</code></p><p></p><p>*to execute input <code>./ipsweep.sh 111.111.111</code> in terminal</p><p></p><p>*to write the output to a file use <code>./file.name 111.111.111 &gt; iplist.txt</code></p><p></p><p><h2>Loop Through Results</h2></p><p>In-line Script:</p><p><code>for ip in $(cat iplist.txt); do sudo nmap -sS -p 80 -T4 $ip &amp; done</code></p><p></p><p>the for loop creates a variable (ip) and loops through list of IP addresses</p><p>then for each it does nmap stealth scan of port 80 with speed of t4</p><p>$ip declares the IP address (in nmap call)</p><p>&amp; runs multiple in parallel (also outputs at random - faster but harder to read output) - can replace with ;</p><p></p><p></p></div>
+</body>
+</html>

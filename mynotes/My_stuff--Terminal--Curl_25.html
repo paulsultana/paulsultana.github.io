@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Curl</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles4.css" type="text/css" />
+</head>
+<body>
+<div class='page'><h1 class='title'>Curl</h1><br/><p><h2>Curl Commands</h2></p><p></p><p>Timing website response: (use shortcut bash ttfb.sh)</p><p>curl -o /dev/null -s -w &quot;TTFB: %{time_starttransfer}\n&quot; <a href="https://paulsultana.com">https://paulsultana.com</a></p><p></p><p>Explanation:</p><p>-o /dev/null → discard the output</p><p>-s → silent mode</p><p>-w → custom output, showing only the time until first byte</p><p></p><p>Example output:</p><p>TTFB: 0.245</p><p></p><p>This means 245 ms to first byte.</p><p></p><p>------------------------------------------------------------------------------------------------------------</p><p></p><p>curl -I --resolve www.auma.de:443:185.8.237.6 https://www.auma.de</p><p></p><p>This forces curl to connect to <strong>one specific proxy node</strong>.</p><p>Explanation:</p><p></p><p>--resolve hostname:port:IP</p><p></p><p>So curl will:</p><p></p><p>connect to 185.8.237.5</p><p>send Host: www.auma.de</p><p>use TLS SNI www.auma.de</p><p></p><p>That simulates a real client request but <strong>lets you choose the proxy node</strong>.</p><p></p><p>---------------------------------------------------------------------------------------------------------</p><p></p><p>curl ifconfig.me - use for my public ip</p><p></p><p>curl - loads a url and returns the content (-L follows redirects, -I fetches headers only)</p><p></p><p>curl ifconfig.me - my public IP address</p><p></p><p>curl &#39;url&#39; | jq &#39;.&#39; - for beautifying JSON</p><p></p><p>curl -x HTTP method URL - allows you to specify which HTTP method (GET, PUT, POST, DELETE) - without -x it defaults to GET</p><p></p><p>curl -I -H &quot;User-Agent: Mozilla/5.0&quot; -H &quot;Accept: */*&quot; <a href="https://wedospresales.fun">https://wedospresales.fun</a></p><p></p><p><code>curl -kv -H &quot;Host: tublat.com&quot; </code><code><a href="https://51.89.97.16/">https://51.89.97.16/</a></code> - This command is manually connecting to a specific IP address over HTTPS, while pretending to request the domain <code>tublat.com</code>.</p><p></p><p>curl -sS -D - -o /dev/null https://tublat.com \</p><p>  -H &quot;Accept-Encoding: gzip, deflate, br, zstd&quot; \</p><p>  -H &quot;Cache-Control: no-cache&quot; \</p><p>  -H &quot;User-Agent: Mozilla/5.0&quot;</p></div>
+</body>
+</html>

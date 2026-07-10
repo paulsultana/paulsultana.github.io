@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Host Testing</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles4.css" type="text/css" />
+</head>
+<body>
+<div class='page'><h1 class='title'>Host Testing</h1><br/><p><h2>Steps for testing a domain on a different IP address from the host computer (customer&#39;s computer)</h2><ol><li>Make sure the WGP account exists and the domain is added with the correct Target IP - it is not necessary to connect DNS zone to our proxy at this stage</li><li>Use the terminal command <code>sudo nano /etc/hosts</code> to access the hosts file</li><li>At the end of the list type the IP address you want to test the domain on followed by the domain name (can do root and sub domain)</li><li>Type Ctrl+o and Enter to save the file then Ctrl+x to exit</li><li>Now you can test the domain in the browser and it should load from the IP address you typed</li><li>Check cache if not working correctly</li><li>Once finished, return to hosts file and delete or comment out the line with the domain and new IP address</li></ol></p><p></p><p><img src="images/13-1.png" alt="images/13-1.png" /></p><p></p><p></p><p><h2>To change the hosts file on a Windows 7, XP and Vista operating system, follow the steps below:</h2><ol><li>Click Start</li><li>In the search field, search for “Notepad“</li><li>Right-click on the result for “Notepad”</li><li>Select “Run as Administrator“</li><li>Navigate the hosts file, which is usually in the location: C:WindowsSystem32driversetchosts</li><li>Append your entry to the bottom of the file as shown below in the same format as above - 197.221.22.12 MyDomain.co.za</li><li>Save the file by opening the “File menu” and select “Save”</li></ol></p><p></p><p><img src="images/13-2.png" alt="images/13-2.png" /></p></div>
+</body>
+</html>

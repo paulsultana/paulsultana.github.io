@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Openssl</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles4.css" type="text/css" />
+</head>
+<body>
+<div class='page'><h1 class='title'>Openssl</h1><br/><p><h1>Openssl</h1></p><p>Used to test website certificates</p><p></p><p><strong>General prompt to see everything:</strong></p><p>openssl s_client -connect domain.tld:443</p><p></p><p><strong>Prompt to see only relevant cert info:</strong></p><p>openssl s_client -connect domain.tld:443 -servername domain.tld &lt;/dev/null 2&gt;/dev/null \</p><p>  | openssl x509 -noout -issuer -subject -dates</p></div>
+</body>
+</html>

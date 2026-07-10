@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Secondary DNS</title>
+  <meta name="generator" content="CherryTree">
+  <link rel="stylesheet" href="res/styles4.css" type="text/css" />
+</head>
+<body>
+<div class='page'><h1 class='title'>Secondary DNS</h1><br/><p>To test if a domain is setup with WEDOS secondary DNS you can:</p><p></p><p>dig @{DNS IP} domain.com SOA</p><p></p><p>By digging as a DNS IP you can see if the following is true, and therefore is setup as secondary (or primary):<ul><li>status: NOERROR</li><li>flags: aa</li></ul></p><p></p><p>This means that the DNS IP you used is authoritative and can serve the DNS records for that domain.</p><p></p><p>To get the DNS IP just dig the NS (ns.wedos.com -&gt; 45.138.106.0).</p><p></p><p>***both the primary and secondary DNS will look the same - so you need to know which one is primary by digging the domain first***</p><p></p><p>If status returns as REFUSED or SERVFAIL, or there is not aa flag, then the DNS server is not serving the zone.</p></div>
+</body>
+</html>
