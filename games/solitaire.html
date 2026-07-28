@@ -5,57 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Solitaire</title>
 <style>
+
   *{ box-sizing:border-box; }
-  :root{ --ink:#33302c; --red:#cf3a2e; --blue:#2f6bb0; --dash:#b7b7af; --cols:7; }
+  :root{ --ink:#2f3136; --red:#d23b3b; --line:#c7cbd1; --line2:#98a0aa; --dash:#d4d8de; --cols:7; }
   html,body{ margin:0; padding:0; background:#ffffff; }
-  body{
-    font-family:'Comic Sans MS','Comic Neue','Chalkboard SE','Segoe Print','Bradley Hand',cursive,sans-serif;
-    color:var(--ink); -webkit-user-select:none; user-select:none;
-    -webkit-tap-highlight-color:transparent; touch-action:manipulation;
-  }
+  body{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
   #app{ width:96vw; max-width:960px; margin:16px auto 40px; }
   @media (min-width:720px){ #app{ width:80vw; } }
-  header{ display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
-  h1{ position:relative; display:inline-block; margin:0; font-size:clamp(22px,4.5vw,34px); letter-spacing:1px; }
-  h1::after{ content:''; position:absolute; left:2%; right:2%; bottom:-3px; height:3px; background:var(--ink); border-radius:2px; filter:url(#rough); }
-  .toolbar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-  button{ position:relative; font-family:inherit; color:var(--ink); background:transparent; border:none; padding:7px 16px; cursor:pointer; font-size:clamp(14px,2.6vw,17px); }
-  button::before{ content:''; position:absolute; inset:0; border:2.6px solid var(--ink); border-radius:13px 10px 12px 9px; filter:url(#rough); pointer-events:none; }
+  header{ display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+  h1{ position:relative; display:inline-block; margin:0; font-size:clamp(22px,4.5vw,32px); font-weight:700; letter-spacing:.3px; }
+  h1::after{ content:''; position:absolute; left:0; right:0; bottom:-5px; height:3px; background:var(--ink); border-radius:2px; }
+  .toolbar{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  button{ font-family:inherit; color:var(--ink); background:#fff; border:1.5px solid var(--line2); border-radius:9px; padding:7px 14px; cursor:pointer; font-size:clamp(13px,2.6vw,16px); }
+  button:hover{ background:#f5f6f8; }
   button:active{ transform:translateY(1px); }
-  #stats{ font-size:clamp(13px,2.6vw,16px); opacity:.75; }
-
+  #stats{ font-size:clamp(12px,2.5vw,15px); color:#8b929c; }
   #board{ position:relative; width:100%; }
   #topRow,#tableau{ display:grid; grid-template-columns:repeat(var(--cols),var(--cw)); gap:var(--gap); justify-content:center; }
   #tableau{ margin-top:calc(var(--ch)*0.34); align-items:start; }
   .cell{ position:relative; height:var(--ch); }
   .col{ position:relative; }
-
-  .card{ position:absolute; left:0; width:var(--cw); height:var(--ch); background:#fff; cursor:pointer; touch-action:none; }
+  .card{ position:absolute; left:0; width:var(--cw); height:var(--ch); background:#fff; border:1.5px solid var(--line);
+    border-radius:calc(var(--cw)*0.09); box-shadow:0 1px 2px rgba(0,0,0,.06); cursor:pointer; touch-action:none; }
   .card.face{ cursor:grab; }
   .cell .card{ top:0; }
-  .card::before{ content:''; position:absolute; inset:0; border:2.6px solid var(--ink); border-radius:11px 9px 12px 8px; filter:url(#rough); pointer-events:none; }
   .card.red{ color:var(--red); }
-  .card.red::before{ border-color:var(--red); }
-  .card.face .corner{ position:absolute; top:calc(var(--cw)*0.05); left:calc(var(--cw)*0.09); display:flex; flex-direction:column; align-items:center; line-height:.9; }
-  .card .corner .r{ font-size:calc(var(--cw)*0.30); font-weight:bold; }
-  .card .corner .s{ font-size:calc(var(--cw)*0.26); }
-  .card .pip{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:calc(var(--cw)*0.52); }
-
-  .slot.empty, .recycle{ position:absolute; inset:0; top:0; width:var(--cw); height:var(--ch); border:2.6px dashed var(--dash); border-radius:11px 9px 12px 8px; filter:url(#rough); }
-  .recycle{ display:flex; align-items:center; justify-content:center; color:#a5a59d; font-size:calc(var(--cw)*0.5); }
-
+  .card .idx{ position:absolute; top:calc(var(--cw)*0.08); left:calc(var(--cw)*0.12); display:flex; flex-direction:column; align-items:flex-start; line-height:.94; font-weight:600; }
+  .card .idx .r{ font-size:calc(var(--cw)*0.40); }
+  .card .idx .s{ font-size:calc(var(--cw)*0.34); margin-top:calc(var(--cw)*-0.02); }
+  .card .count{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:calc(var(--cw)*0.5); font-weight:700; }
+  .card.sel{ outline:3px solid #4a90d9; outline-offset:-2px; }
+  .slot.empty, .recycle{ position:absolute; inset:0; top:0; width:var(--cw); height:var(--ch); border:1.6px dashed var(--dash); border-radius:calc(var(--cw)*0.09); }
+  .recycle{ display:flex; align-items:center; justify-content:center; color:#b9bec6; font-size:calc(var(--cw)*0.5); }
   .dragLayer{ position:fixed; left:0; top:0; pointer-events:none; z-index:9999; }
-  .dragLayer .card{ box-shadow:0 7px 16px rgba(0,0,0,.18); }
-
-  #win{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:rgba(255,255,255,.9); }
+  .dragLayer .card{ box-shadow:0 8px 18px rgba(0,0,0,.22); }
+  #msg{ position:absolute; top:calc(var(--ch)*0.3); left:50%; transform:translateX(-50%); background:#fff; color:var(--ink);
+    padding:8px 16px; font-size:clamp(13px,2.6vw,16px); z-index:60; border:1.5px solid var(--line2); border-radius:10px; white-space:nowrap; transition:opacity .5s; }
+  #msg.hidden{ display:none; }
+  #msg.fade{ opacity:0; }
+  #win{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:rgba(255,255,255,.92); }
   #win.hidden{ display:none; }
-  #win .msg{ font-size:clamp(30px,7vw,58px); color:var(--blue); }
+  #win .msg{ font-size:clamp(28px,7vw,52px); font-weight:700; color:#2f8f5b; }
+
 </style>
 </head>
 <body>
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.8"/></filter>
-  </svg>
 
   <div id="app">
     <header>
@@ -249,7 +244,7 @@ function layout(){
   const r=document.documentElement.style;
   r.setProperty('--cw',CW+'px'); r.setProperty('--ch',CH+'px'); r.setProperty('--gap',GAP+'px'); r.setProperty('--cols',COLS);
 }
-function faceVisual(card){ const el=document.createElement('div'); el.className='card face '+card.color; el.innerHTML='<div class="corner"><span class="r">'+RANKS[card.rank]+'</span><span class="s">'+card.suit+'</span></div><div class="pip">'+card.suit+'</div>'; return el; }
+function faceVisual(card){ const el=document.createElement('div'); el.className='card face '+card.color; el.innerHTML='<div class="idx"><span class="r">'+RANKS[card.rank]+'</span><span class="s">'+card.suit+'</span></div>'; return el; }
 function backVisual(){ const el=document.createElement('div'); el.className='card'; return el; }
 function emptySlot(){ const el=document.createElement('div'); el.className='slot empty'; return el; }
 function cell(pile,index){ const el=document.createElement('div'); el.className='cell'; if(pile) el.dataset.pile=pile; if(index!==undefined) el.dataset.index=index; return el; }
@@ -348,6 +343,7 @@ $('drawBtn').addEventListener('click',()=>{ if(dealing) return; drawMode=(drawMo
 $('winnableBtn').addEventListener('click',()=>{ if(dealing) return; winnable=!winnable; $('winnableBtn').textContent='Winnable: '+(winnable?'On':'Off'); newGame(); });
 $('winBtn').addEventListener('click',newGame);
 window.addEventListener('resize',()=>{ if(state && !dealing) render(); });
+let _lastTE=0; document.addEventListener('touchend',function(e){ const n=Date.now(); if(n-_lastTE<=350 && e.target.closest && e.target.closest('#board')) e.preventDefault(); _lastTE=n; }, {passive:false});
 newGame();
 </script>
 </body>
