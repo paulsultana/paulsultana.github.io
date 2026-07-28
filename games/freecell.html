@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>FreeCell</title>
+<style>
+  *{ box-sizing:border-box; }
+  :root{ --ink:#33302c; --red:#cf3a2e; --blue:#2f6bb0; --dash:#b7b7af; --cols:8; }
+  html,body{ margin:0; padding:0; background:#ffffff; }
+  body{ font-family:'Comic Sans MS','Comic Neue','Chalkboard SE','Segoe Print','Bradley Hand',cursive,sans-serif; color:var(--ink); -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+  #app{ width:96vw; max-width:1040px; margin:16px auto 40px; }
+  @media (min-width:720px){ #app{ width:84vw; } }
+  header{ display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  h1{ position:relative; display:inline-block; margin:0; font-size:clamp(22px,4.5vw,34px); letter-spacing:1px; }
+  h1::after{ content:''; position:absolute; left:2%; right:2%; bottom:-3px; height:3px; background:var(--ink); border-radius:2px; filter:url(#rough); }
+  .toolbar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  button{ position:relative; font-family:inherit; color:var(--ink); background:transparent; border:none; padding:7px 16px; cursor:pointer; font-size:clamp(14px,2.6vw,17px); }
+  button::before{ content:''; position:absolute; inset:0; border:2.6px solid var(--ink); border-radius:13px 10px 12px 9px; filter:url(#rough); pointer-events:none; }
+  button:active{ transform:translateY(1px); }
+  #stats{ font-size:clamp(13px,2.6vw,16px); opacity:.75; }
+
+  #board{ position:relative; width:100%; }
+  #topRow,#tableau{ display:grid; grid-template-columns:repeat(var(--cols),var(--cw)); gap:var(--gap); justify-content:center; }
+  #tableau{ margin-top:calc(var(--ch)*0.34); align-items:start; }
+  .cell{ position:relative; height:var(--ch); }
+  .col{ position:relative; }
+
+  .card{ position:absolute; left:0; width:var(--cw); height:var(--ch); background:#fff; cursor:pointer; touch-action:none; }
+  .card.face{ cursor:grab; }
+  .cell .card{ top:0; }
+  .card::before{ content:''; position:absolute; inset:0; border:2.6px solid var(--ink); border-radius:11px 9px 12px 8px; filter:url(#rough); pointer-events:none; }
+  .card.red{ color:var(--red); }
+  .card.red::before{ border-color:var(--red); }
+  .card.face .corner{ position:absolute; top:calc(var(--cw)*0.05); left:calc(var(--cw)*0.09); display:flex; flex-direction:column; align-items:center; line-height:.9; }
+  .card .corner .r{ font-size:calc(var(--cw)*0.30); font-weight:bold; }
+  .card .corner .s{ font-size:calc(var(--cw)*0.26); }
+  .card .pip{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:calc(var(--cw)*0.52); }
+
+  .slot.empty{ position:absolute; inset:0; top:0; width:var(--cw); height:var(--ch); border:2.6px dashed var(--dash); border-radius:11px 9px 12px 8px; filter:url(#rough); }
+
+  .dragLayer{ position:fixed; left:0; top:0; pointer-events:none; z-index:9999; }
+  .dragLayer .card{ box-shadow:0 7px 16px rgba(0,0,0,.18); }
+
+  #win{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:rgba(255,255,255,.9); }
+  #win.hidden{ display:none; }
+  #win .msg{ font-size:clamp(30px,7vw,58px); color:var(--blue); }
+</style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.8"/></filter>
+  </svg>
+
+  <div id="app">
+    <header>
+      <h1>FreeCell</h1>
+      <div class="toolbar">
+        <button id="newBtn">New game</button>
+        <button id="undoBtn">Undo</button>
+        <span id="stats">Moves: 0 &middot; 0:00</span>
+      </div>
+    </header>
+    <div id="board">
+      <div id="topRow"></div>
+      <div id="tableau"></div>
+      <div id="win" class="hidden"><div class="msg">You win! &#9829;</div><button id="winBtn">Play again</button></div>
+    </div>
+  </div>
+
+<script>
+"use strict";
+/* ============================================================
+   FreeCell  -  drag to move, double-click = best spot
+   ============================================================ */
+const SUITS=[{s:'\u2660',color:'black'},{s:'\u2665',color:'red'},{s:'\u2666',color:'red'},{s:'\u2663',color:'black'}];
+const RANKS=['','A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+const COLS=8;
+
+let state=null, history=[], won=false;
+let CW=0, CH=0, GAP=0, OFF_UP=0, OFF_DOWN=0;
+let timer=null, seconds=0;
+const $=id=>document.getElementById(id);
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+/* ---------- new game ---------- */
+function newGame(){
+  const deck=[];
+  for(const {s,color} of SUITS) for(let r=1;r<=13;r++) deck.push({suit:s,color,rank:r,faceUp:true});
+  shuffle(deck);
+  state={ free:[null,null,null,null], foundations:[[],[],[],[]], tableau:[[],[],[],[],[],[],[],[]], moves:0 };
+  deck.forEach((c,i)=> state.tableau[i%8].push(c));
+  history=[]; won=false; hideWin(); startTimer(); render();
+}
+
+/* ---------- rules ---------- */
+function canFoundation(card,f){ if(!f.length) return card.rank===1; const t=f[f.length-1]; return t.suit===card.suit && card.rank===t.rank+1; }
+function canTableau(card,col){ if(!col.length) return true; const t=col[col.length-1]; return t.color!==card.color && t.rank===card.rank+1; }
+function isRun(cards){ for(let i=1;i<cards.length;i++){ const p=cards[i-1],c=cards[i]; if(p.rank!==c.rank+1 || p.color===c.color) return false; } return true; }
+function freeCount(){ return state.free.filter(x=>x===null).length; }
+function emptyCount(){ return state.tableau.filter(c=>c.length===0).length; }
+function capTo(empty){ return (freeCount()+1)*Math.pow(2,Math.max(0,empty)); }
+
+/* ---------- undo ---------- */
+function snapshot(){ history.push(JSON.stringify({free:state.free,foundations:state.foundations,tableau:state.tableau,moves:state.moves})); if(history.length>300) history.shift(); }
+function undo(){ if(!history.length) return; const s=JSON.parse(history.pop()); state.free=s.free; state.foundations=s.foundations; state.tableau=s.tableau; state.moves=s.moves; won=false; hideWin(); render(); }
+
+/* ---------- game hooks ---------- */
+function pickup(pile,index,cardIndex){
+  if(pile==='free'){ const c=state.free[index]; if(!c) return null; return {src:{pile:'free',index}, group:[c]}; }
+  if(pile==='foundation'){ const f=state.foundations[index]; if(!f.length) return null; return {src:{pile:'foundation',index}, group:[f[f.length-1]]}; }
+  if(pile==='tableau'){ const col=state.tableau[index]; if(cardIndex<0||!col[cardIndex]) return null; const g=col.slice(cardIndex); if(!isRun(g)) return null; return {src:{pile:'tableau',index,cardIndex}, group:g}; }
+  return null;
+}
+function legalDrop(group,src,destPile,destIndex){
+  const lead=group[0], single=group.length===1, empty=emptyCount();
+  if(destPile==='foundation') return single && canFoundation(lead,state.foundations[destIndex]);
+  if(destPile==='free') return single && state.free[destIndex]===null;
+  if(destPile==='tableau'){
+    if(src.pile==='tableau'&&src.index===destIndex) return false;
+    const col=state.tableau[destIndex];
+    if(col.length) return canTableau(lead,col) && group.length<=capTo(empty);
+    return group.length<=capTo(empty-1);   // moving into an empty column
+  }
+  return false;
+}
+function best(group,src){
+  const lead=group[0], single=group.length===1, empty=emptyCount();
+  if(single) for(let f=0;f<4;f++) if(canFoundation(lead,state.foundations[f])) return {pile:'foundation',index:f};   // home first
+  for(let t=0;t<8;t++){ if(src.pile==='tableau'&&src.index===t) continue; const c=state.tableau[t]; if(c.length && canTableau(lead,c) && group.length<=capTo(empty)) return {pile:'tableau',index:t}; }
+  for(let t=0;t<8;t++){ if(src.pile==='tableau'&&src.index===t) continue; if(!state.tableau[t].length && group.length<=capTo(empty-1)) return {pile:'tableau',index:t}; }
+  return null;
+}
+function commit(group,src,destPile,destIndex){
+  snapshot();
+  if(src.pile==='free') state.free[src.index]=null;
+  else if(src.pile==='foundation') state.foundations[src.index].pop();
+  else state.tableau[src.index].splice(src.cardIndex);
+  if(destPile==='foundation') state.foundations[destIndex].push(group[0]);
+  else if(destPile==='free') state.free[destIndex]=group[0];
+  else state.tableau[destIndex].push(...group);
+  state.moves++; checkWin(); render();
+}
+function tap(){ return false; }   // no stock in FreeCell
+function checkWin(){ if(state.foundations.every(f=>f.length===13)){ won=true; stopTimer(); showWin(); } }
+
+/* ---------- rendering ---------- */
+function layout(){
+  const w=$('board').clientWidth; if(!w) return;
+  GAP=Math.max(4,Math.round(w*0.010));
+  CW =Math.floor((w-GAP*(COLS-1))/COLS);
+  CH =Math.round(CW*1.4);
+  OFF_DOWN=Math.round(CH*0.16); OFF_UP=Math.round(CH*0.30);
+  const r=document.documentElement.style;
+  r.setProperty('--cw',CW+'px'); r.setProperty('--ch',CH+'px'); r.setProperty('--gap',GAP+'px'); r.setProperty('--cols',COLS);
+}
+function faceVisual(card){ const el=document.createElement('div'); el.className='card face '+card.color; el.innerHTML='<div class="corner"><span class="r">'+RANKS[card.rank]+'</span><span class="s">'+card.suit+'</span></div><div class="pip">'+card.suit+'</div>'; return el; }
+function emptySlot(){ const el=document.createElement('div'); el.className='slot empty'; return el; }
+function cell(pile,index){ const el=document.createElement('div'); el.className='cell'; if(pile) el.dataset.pile=pile; if(index!==undefined) el.dataset.index=index; return el; }
+function tagCard(el,pile,index,card){ el.dataset.pile=pile; if(index!==undefined) el.dataset.index=index; if(card!==undefined) el.dataset.card=card; }
+function renderColumn(col){
+  const wrap=document.createElement('div'); wrap.className='col'; wrap.dataset.pile='tableau'; wrap.dataset.index=col;
+  const cards=state.tableau[col];
+  if(!cards.length){ wrap.appendChild(emptySlot()); wrap.style.height=CH+'px'; return wrap; }
+  let top=0, maxTop=0;
+  cards.forEach((card,i)=>{ const el=faceVisual(card); tagCard(el,'tableau',col,i); el.style.top=top+'px'; el.style.zIndex=i; wrap.appendChild(el); maxTop=top; top+=OFF_UP; });
+  wrap.style.height=(maxTop+CH)+'px'; return wrap;
+}
+function render(){
+  layout();
+  const topRow=$('topRow'); topRow.innerHTML='';
+  for(let i=0;i<4;i++){ const c=cell('free',i); if(state.free[i]){ const v=faceVisual(state.free[i]); tagCard(v,'free',i,0); c.appendChild(v);} else c.appendChild(emptySlot()); topRow.appendChild(c); }
+  for(let f=0;f<4;f++){ const c=cell('foundation',f); const p=state.foundations[f]; if(p.length){ const v=faceVisual(p[p.length-1]); tagCard(v,'foundation',f,p.length-1); c.appendChild(v);} else c.appendChild(emptySlot()); topRow.appendChild(c); }
+  const tab=$('tableau'); tab.innerHTML='';
+  for(let col=0;col<8;col++) tab.appendChild(renderColumn(col));
+  updateStats();
+}
+
+/* ---------- stats / timer ---------- */
+function fmt(s){ const m=Math.floor(s/60),r=s%60; return m+':'+String(r).padStart(2,'0'); }
+function updateStats(){ $('stats').innerHTML='Moves: '+(state?state.moves:0)+' &middot; '+fmt(seconds); }
+function startTimer(){ stopTimer(); seconds=0; timer=setInterval(()=>{ seconds++; updateStats(); },1000); }
+function stopTimer(){ if(timer) clearInterval(timer); timer=null; }
+function showWin(){ $('win').classList.remove('hidden'); }
+function hideWin(){ $('win').classList.add('hidden'); }
+
+/* ============================================================
+   Drag + double-click controller
+   ============================================================ */
+const ptr={ down:false, moved:false, id:null, pick:null, clone:null, grab:{x:0,y:0} };
+let lastTapKey='', lastTapTime=0;
+const THRESH=6;
+function hideOrigins(src){
+  let els=[];
+  if(src.pile==='tableau'){ document.querySelectorAll('.card[data-pile="tableau"][data-index="'+src.index+'"]').forEach(el=>{ if(Number(el.dataset.card)>=src.cardIndex) els.push(el); }); }
+  else { let sel='.card[data-pile="'+src.pile+'"]'; if(src.index!==undefined) sel+='[data-index="'+src.index+'"]'; document.querySelectorAll(sel).forEach(el=>els.push(el)); }
+  els.forEach(el=>el.style.visibility='hidden');
+}
+function makeClone(group){ const layer=document.createElement('div'); layer.className='dragLayer'; layer.style.width=CW+'px'; group.forEach((card,i)=>{ const el=faceVisual(card); el.style.top=(i*OFF_UP)+'px'; el.style.left='0'; el.style.zIndex=i; layer.appendChild(el); }); document.body.appendChild(layer); return layer; }
+function onDown(e){
+  if(won || ptr.down) return; if(e.button && e.button!==0) return;
+  const el=e.target.closest('[data-pile]'); if(!el) return;
+  ptr.down=true; ptr.moved=false; ptr.id=e.pointerId; ptr.startX=e.clientX; ptr.startY=e.clientY;
+  ptr.pile=el.dataset.pile; ptr.index=el.dataset.index!==undefined?Number(el.dataset.index):0; ptr.cardIndex=el.dataset.card!==undefined?Number(el.dataset.card):-1;
+  ptr.pick=pickup(ptr.pile,ptr.index,ptr.cardIndex);
+  const cardEl=e.target.closest('.card');
+  if(cardEl){ const rect=cardEl.getBoundingClientRect(); ptr.grab={x:e.clientX-rect.left, y:e.clientY-rect.top}; } else ptr.grab={x:CW/2,y:CH/2};
+  window.addEventListener('pointermove',onMove); window.addEventListener('pointerup',onUp);
+}
+function onMove(e){
+  if(!ptr.down || e.pointerId!==ptr.id) return;
+  if(!ptr.moved){ if(Math.hypot(e.clientX-ptr.startX,e.clientY-ptr.startY)<THRESH) return; ptr.moved=true; if(ptr.pick){ hideOrigins(ptr.pick.src); ptr.clone=makeClone(ptr.pick.group); } }
+  if(ptr.clone){ ptr.clone.style.transform='translate('+(e.clientX-ptr.grab.x)+'px,'+(e.clientY-ptr.grab.y)+'px)'; e.preventDefault(); }
+}
+function onUp(e){
+  if(e.pointerId!==ptr.id) return;
+  window.removeEventListener('pointermove',onMove); window.removeEventListener('pointerup',onUp);
+  const moved=ptr.moved, pick=ptr.pick, pile=ptr.pile, index=ptr.index, cardIndex=ptr.cardIndex, px=e.clientX, py=e.clientY;
+  if(ptr.clone){ ptr.clone.remove(); ptr.clone=null; }
+  ptr.down=false;
+  if(moved){
+    if(pick){ const hit=document.elementFromPoint(px,py); const pe=hit&&hit.closest('[data-pile]'); if(pe){ const dp=pe.dataset.pile, di=pe.dataset.index!==undefined?Number(pe.dataset.index):0; if(legalDrop(pick.group,pick.src,dp,di)){ commit(pick.group,pick.src,dp,di); return; } } }
+    render(); return;
+  }
+  const key=pile+':'+index+':'+cardIndex, now=Date.now();
+  const dbl=(now-lastTapTime<350 && key===lastTapKey); lastTapTime=now; lastTapKey=key;
+  if(tap(pile,index,cardIndex)) return;
+  if(dbl && pick){ const d=best(pick.group,pick.src); if(d) commit(pick.group,pick.src,d.pile,d.index); }
+}
+
+/* ---------- wiring ---------- */
+$('board').addEventListener('pointerdown',onDown);
+$('newBtn').addEventListener('click',newGame);
+$('undoBtn').addEventListener('click',undo);
+$('winBtn').addEventListener('click',newGame);
+window.addEventListener('resize',()=>{ if(state) render(); });
+newGame();
+</script>
+</body>
+</html>
