@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Forty Thieves</title>
+<style>
+
+  *{ box-sizing:border-box; }
+  :root{ --ink:#2f3136; --red:#d23b3b; --line:#c7cbd1; --line2:#98a0aa; --dash:#d4d8de; --cols:10; }
+  html,body{ margin:0; padding:0; background:#ffffff; }
+  body{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+  #app{ width:96vw; max-width:1160px; margin:16px auto 40px; }
+  @media (min-width:720px){ #app{ width:90vw; } }
+  header{ display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+  h1{ position:relative; display:inline-block; margin:0; font-size:clamp(22px,4.5vw,32px); font-weight:700; letter-spacing:.3px; }
+  h1::after{ content:''; position:absolute; left:0; right:0; bottom:-5px; height:3px; background:var(--ink); border-radius:2px; }
+  .toolbar{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  button{ font-family:inherit; color:var(--ink); background:#fff; border:1.5px solid var(--line2); border-radius:9px; padding:7px 14px; cursor:pointer; font-size:clamp(13px,2.6vw,16px); }
+  button:hover{ background:#f5f6f8; }
+  button:active{ transform:translateY(1px); }
+  #stats{ font-size:clamp(12px,2.5vw,15px); color:#8b929c; }
+  #board{ position:relative; width:100%; }
+  #topRow,#tableau{ display:grid; grid-template-columns:repeat(var(--cols),var(--cw)); gap:var(--gap); justify-content:center; }
+  #tableau{ margin-top:calc(var(--ch)*0.34); align-items:start; }
+  .cell{ position:relative; height:var(--ch); }
+  .col{ position:relative; }
+  .card{ position:absolute; left:0; width:var(--cw); height:var(--ch); background:#fff; border:1.5px solid var(--line);
+    border-radius:calc(var(--cw)*0.09); box-shadow:0 1px 2px rgba(0,0,0,.06); cursor:pointer; touch-action:none; }
+  .card.face{ cursor:grab; }
+  .cell .card{ top:0; }
+  .card.red{ color:var(--red); }
+  .card .idx{ position:absolute; top:calc(var(--cw)*0.08); left:calc(var(--cw)*0.12); display:flex; flex-direction:column; align-items:flex-start; line-height:.94; font-weight:600; }
+  .card .idx .r{ font-size:calc(var(--cw)*0.40); }
+  .card .idx .s{ font-size:calc(var(--cw)*0.34); margin-top:calc(var(--cw)*-0.02); }
+  .card .count{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:calc(var(--cw)*0.5); font-weight:700; }
+  .card.sel{ outline:3px solid #4a90d9; outline-offset:-2px; }
+  .slot.empty, .recycle{ position:absolute; inset:0; top:0; width:var(--cw); height:var(--ch); border:1.6px dashed var(--dash); border-radius:calc(var(--cw)*0.09); }
+  .recycle{ display:flex; align-items:center; justify-content:center; color:#b9bec6; font-size:calc(var(--cw)*0.5); }
+  .dragLayer{ position:fixed; left:0; top:0; pointer-events:none; z-index:9999; }
+  .dragLayer .card{ box-shadow:0 8px 18px rgba(0,0,0,.22); }
+  #msg{ position:absolute; top:calc(var(--ch)*0.3); left:50%; transform:translateX(-50%); background:#fff; color:var(--ink);
+    padding:8px 16px; font-size:clamp(13px,2.6vw,16px); z-index:60; border:1.5px solid var(--line2); border-radius:10px; white-space:nowrap; transition:opacity .5s; }
+  #msg.hidden{ display:none; }
+  #msg.fade{ opacity:0; }
+  #win{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:rgba(255,255,255,.92); }
+  #win.hidden{ display:none; }
+  #win .msg{ font-size:clamp(28px,7vw,52px); font-weight:700; color:#2f8f5b; }
+
+</style></head>
+<body>
+<div id="app">
+  <header><h1>Forty Thieves</h1><div class="toolbar"><button id="newBtn">New game</button>
+        <button id="undoBtn">Undo</button><span id="stats">Home: 0/104 · Moves: 0 · 0:00</span></div></header>
+  <div id="board">
+    <div id="topRow"></div>
+    <div id="tableau"></div>
+    <div id="msg" class="hidden"></div>
+    <div id="win" class="hidden"><div class="msg">You win! ♥</div><button id="winBtn">Play again</button></div>
+  </div>
+</div>
+<script>
+"use strict";
+
+const $=id=>document.getElementById(id);
+const RANKS=['','A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+const SUITS=[{s:'\u2660',color:'black'},{s:'\u2665',color:'red'},{s:'\u2666',color:'red'},{s:'\u2663',color:'black'}];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function faceVisual(card){ const el=document.createElement('div'); el.className='card face '+card.color; el.innerHTML='<div class="idx"><span class="r">'+RANKS[card.rank]+'</span><span class="s">'+card.suit+'</span></div>'; return el; }
+function backVisual(){ const el=document.createElement('div'); el.className='card'; return el; }
+function emptySlot(){ const el=document.createElement('div'); el.className='slot empty'; return el; }
+function cell(pile,index){ const el=document.createElement('div'); el.className='cell'; if(pile) el.dataset.pile=pile; if(index!==undefined) el.dataset.index=index; return el; }
+function tagCard(el,pile,index,card){ el.dataset.pile=pile; if(index!==undefined) el.dataset.index=index; if(card!==undefined) el.dataset.card=card; }
+function fmt(s){ const m=Math.floor(s/60),r=s%60; return m+':'+String(r).padStart(2,'0'); }
+let timer=null, seconds=0;
+function startTimer(){ stopTimer(); seconds=0; timer=setInterval(()=>{ seconds++; updateStats(); },1000); }
+function stopTimer(){ if(timer) clearInterval(timer); timer=null; }
+function showWin(){ $('win').classList.remove('hidden'); }
+function hideWin(){ $('win').classList.add('hidden'); }
+let msgTimer=null;
+function flashMsg(t){ const m=$('msg'); if(!m) return; m.textContent=t; m.classList.remove('hidden','fade'); if(msgTimer) clearTimeout(msgTimer); msgTimer=setTimeout(()=>{ m.classList.add('fade'); setTimeout(()=>m.classList.add('hidden'),500); },1600); }
+let won=false, dealing=false;
+let CW=0,CH=0,GAP=0,OFF_UP=0,OFF_DOWN=0;
+function canFoundation(pile,card){ if(!pile.length) return card.rank===1; const t=pile[pile.length-1]; return t.suit===card.suit && card.rank===t.rank+1; }
+function renderColumn(col){ const cards=state.tableau[col]; const wrap=document.createElement('div'); wrap.className='col'; wrap.dataset.pile='tableau'; wrap.dataset.index=col;
+  if(!cards.length){ wrap.appendChild(emptySlot()); wrap.style.height=CH+'px'; return wrap; }
+  let top=0,maxTop=0; cards.forEach((card,i)=>{ let el; if(card.faceUp){ el=faceVisual(card); tagCard(el,'tableau',col,i); } else { el=backVisual(); } el.style.top=top+'px'; el.style.zIndex=i; wrap.appendChild(el); maxTop=top; top+=card.faceUp?OFF_UP:OFF_DOWN; });
+  wrap.style.height=(maxTop+CH)+'px'; return wrap; }
+/* ---- drag + double-click controller ---- */
+const ptr={down:false,moved:false,id:null,pick:null,clone:null,grab:{x:0,y:0},startX:0,startY:0,pile:'',index:undefined,cardIndex:-1};
+let lastTapKey='', lastTapTime=0; const THRESH=6;
+function hideOrigins(src){ const els=[];
+  if(src.pile==='tableau'){ document.querySelectorAll('.card[data-pile="tableau"][data-index="'+src.index+'"]').forEach(el=>{ if(el.dataset.card!==undefined && Number(el.dataset.card)>=src.cardIndex) els.push(el); }); }
+  else { let s='.card[data-pile="'+src.pile+'"]'; if(src.index!==undefined) s+='[data-index="'+src.index+'"]'; document.querySelectorAll(s).forEach(el=>els.push(el)); }
+  els.forEach(el=>el.style.visibility='hidden'); }
+function makeClone(group){ const layer=document.createElement('div'); layer.className='dragLayer'; layer.style.width=CW+'px'; layer.style.height=CH+'px'; group.forEach((card,i)=>{ const el=faceVisual(card); el.style.top=(i*OFF_UP)+'px'; el.style.left='0'; el.style.zIndex=i; layer.appendChild(el); }); document.body.appendChild(layer); return layer; }
+function onDown(e){ if(won||dealing||ptr.down) return; if(e.button&&e.button!==0) return; const el=e.target.closest('[data-pile]'); if(!el) return;
+  ptr.down=true; ptr.moved=false; ptr.id=e.pointerId; ptr.startX=e.clientX; ptr.startY=e.clientY;
+  ptr.pile=el.dataset.pile; ptr.index=el.dataset.index!==undefined?Number(el.dataset.index):undefined;
+  const cardEl=e.target.closest('.card'); ptr.cardIndex=(cardEl&&cardEl.dataset.card!==undefined)?Number(cardEl.dataset.card):-1;
+  ptr.pick=pickup(ptr.pile,ptr.index,ptr.cardIndex);
+  if(cardEl){ const r=cardEl.getBoundingClientRect(); ptr.grab={x:e.clientX-r.left,y:e.clientY-r.top}; } else ptr.grab={x:CW/2,y:CH/2};
+  window.addEventListener('pointermove',onMove); window.addEventListener('pointerup',onUp); }
+function onMove(e){ if(!ptr.down||e.pointerId!==ptr.id) return;
+  if(!ptr.moved){ if(Math.hypot(e.clientX-ptr.startX,e.clientY-ptr.startY)<THRESH) return; ptr.moved=true; if(ptr.pick){ hideOrigins(ptr.pick.src); ptr.clone=makeClone(ptr.pick.group); } }
+  if(ptr.clone){ ptr.clone.style.transform='translate('+(e.clientX-ptr.grab.x)+'px,'+(e.clientY-ptr.grab.y)+'px)'; e.preventDefault(); } }
+function onUp(e){ if(e.pointerId!==ptr.id) return; window.removeEventListener('pointermove',onMove); window.removeEventListener('pointerup',onUp);
+  const moved=ptr.moved, pick=ptr.pick, pile=ptr.pile, index=ptr.index, cardIndex=ptr.cardIndex, px=e.clientX, py=e.clientY;
+  if(ptr.clone){ ptr.clone.remove(); ptr.clone=null; } ptr.down=false;
+  if(moved){ if(pick){ const hit=document.elementFromPoint(px,py); const pe=hit&&hit.closest('[data-pile]'); if(pe){ const dp=pe.dataset.pile, di=pe.dataset.index!==undefined?Number(pe.dataset.index):undefined; if(legalDrop(pick.group,pick.src,dp,di)){ commit(pick.group,pick.src,dp,di); return; } } } render(); return; }
+  const key=pile+':'+index+':'+cardIndex, now=Date.now(); const dbl=(now-lastTapTime<350&&key===lastTapKey); lastTapTime=now; lastTapKey=key;
+  if(tap(pile,index)) return;
+  if(dbl&&pick){ const d=best(pick.group,pick.src); if(d) commit(pick.group,pick.src,d.pile,d.index); } }
+
+const COLS=10;
+let state=null, history=[];
+function deck2(){ const d=[]; for(let k=0;k<2;k++) for(const su of SUITS) for(let r=1;r<=13;r++) d.push({suit:su.s,color:su.color,rank:r,faceUp:true}); return shuffle(d); }
+function newGame(){ const d=deck2(); const tableau=[]; let k=0; for(let c=0;c<10;c++){ const col=[]; for(let n=0;n<4;n++){ const card=d[k++]; card.faceUp=true; col.push(card); } tableau.push(col); }
+  const stock=d.slice(k).map(c=>({suit:c.suit,color:c.color,rank:c.rank,faceUp:false}));
+  state={ tableau, foundations:[[],[],[],[],[],[],[],[]], stock, waste:[], moves:0 }; history=[]; won=false; hideWin(); startTimer(); render(); }
+function snapshot(){ history.push(JSON.stringify({tableau:state.tableau,foundations:state.foundations,stock:state.stock,waste:state.waste,moves:state.moves})); if(history.length>800) history.shift(); }
+function undo(){ if(!history.length) return; const s=JSON.parse(history.pop()); Object.assign(state,s); won=false; hideWin(); render(); }
+function isRun(cards,from){ for(let j=from;j<cards.length-1;j++){ if(cards[j].suit!==cards[j+1].suit || cards[j].rank!==cards[j+1].rank+1) return false; } return true; }
+function emptyCols(){ let n=0; for(const c of state.tableau) if(!c.length) n++; return n; }
+function pickup(pile,index,cardIndex){
+  if(pile==='tableau'){ if(cardIndex<0) return null; const cards=state.tableau[index]; if(!isRun(cards,cardIndex)) return null; return {src:{pile:'tableau',index,cardIndex},group:cards.slice(cardIndex)}; }
+  if(pile==='waste'){ if(!state.waste.length) return null; return {src:{pile:'waste'},group:[state.waste[state.waste.length-1]]}; }
+  return null; }
+function legalDrop(group,src,dp,di){ if(dp===undefined) return false; const lead=group[0];
+  if(dp==='foundation'){ return group.length===1 && canFoundation(state.foundations[di],lead); }
+  if(dp==='tableau'){ if(dp===src.pile && di===src.index) return false; const dest=state.tableau[di]; const e=emptyCols(); const cap=(dest.length?e:e-1)+1; if(group.length>cap) return false; if(!dest.length) return true; const t=dest[dest.length-1]; return t.suit===lead.suit && t.rank===lead.rank+1; }
+  return false; }
+function best(group,src){ const lead=group[0];
+  if(group.length===1){ for(let fi=0;fi<8;fi++) if(canFoundation(state.foundations[fi],lead)) return {pile:'foundation',index:fi}; }
+  for(let c=0;c<10;c++){ if(src.pile==='tableau'&&c===src.index) continue; const dest=state.tableau[c]; if(dest.length && legalDrop(group,src,'tableau',c)) return {pile:'tableau',index:c}; }
+  for(let c=0;c<10;c++){ if(src.pile==='tableau'&&c===src.index) continue; const dest=state.tableau[c]; if(!dest.length && legalDrop(group,src,'tableau',c)) return {pile:'tableau',index:c}; }
+  return null; }
+function commit(group,src,dp,di){ snapshot();
+  if(src.pile==='tableau') state.tableau[src.index].length=src.cardIndex; else if(src.pile==='waste') state.waste.pop();
+  if(dp==='foundation') state.foundations[di].push(group[0]); else state.tableau[di].push(...group);
+  state.moves++; checkWin(); render(); }
+function tap(pile,index){ if(pile==='stock'){ if(state.stock.length){ snapshot(); const c=state.stock.pop(); c.faceUp=true; state.waste.push(c); render(); } else flashMsg('Stock is empty (no redeal)'); return true; } return false; }
+function checkWin(){ if(state.foundations.reduce((a,f)=>a+f.length,0)===104){ won=true; stopTimer(); showWin(); } }
+function layout(){ const w=$('board').clientWidth; if(!w) return; GAP=Math.max(3,Math.round(w*0.008)); CW=Math.floor((w-GAP*(COLS-1))/COLS); CH=Math.round(CW*1.4); OFF_UP=Math.round(CH*0.26); OFF_DOWN=Math.round(CH*0.14);
+  const r=document.documentElement.style; r.setProperty('--cw',CW+'px'); r.setProperty('--ch',CH+'px'); r.setProperty('--gap',GAP+'px'); r.setProperty('--cols',COLS); }
+function render(){ layout(); const topRow=$('topRow'); topRow.innerHTML='';
+  for(let f=0;f<8;f++){ const c=cell('foundation',f); const pile=state.foundations[f]; if(pile.length){ const el=faceVisual(pile[pile.length-1]); tagCard(el,'foundation',f); c.appendChild(el); } else c.appendChild(emptySlot()); topRow.appendChild(c); }
+  const sc=cell('stock'); if(state.stock.length){ const b=document.createElement('div'); b.className='card'; const n=document.createElement('div'); n.className='count'; n.textContent=state.stock.length; b.appendChild(n); sc.appendChild(b); } else sc.appendChild(emptySlot()); topRow.appendChild(sc);
+  const wc=cell('waste'); if(state.waste.length){ const el=faceVisual(state.waste[state.waste.length-1]); tagCard(el,'waste'); wc.appendChild(el); } else wc.appendChild(emptySlot()); topRow.appendChild(wc);
+  const tab=$('tableau'); tab.innerHTML=''; for(let col=0;col<10;col++) tab.appendChild(renderColumn(col)); updateStats(); }
+function updateStats(){ const home=state?state.foundations.reduce((a,f)=>a+f.length,0):0; $('stats').innerHTML='Home: '+home+'/104 &middot; Stock: '+(state?state.stock.length:0)+' &middot; Moves: '+(state?state.moves:0)+' &middot; '+fmt(seconds); }
+$('board').addEventListener('pointerdown',onDown);
+$('newBtn').addEventListener('click',newGame); $('undoBtn').addEventListener('click',undo); $('winBtn').addEventListener('click',newGame);
+window.addEventListener('resize',()=>{ if(state) render(); });
+
+let _lastTE=0; document.addEventListener('touchend',function(e){ const n=Date.now(); if(n-_lastTE<=350 && e.target.closest && e.target.closest('#board')) e.preventDefault(); _lastTE=n; }, {passive:false});
+newGame();
+</script>
+</body></html>
