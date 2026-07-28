@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Games</title>
+<style>
+  *{ box-sizing:border-box; }
+  :root{ --ink:#33302c; --red:#cf3a2e; --blue:#2f6bb0; --dash:#b7b7af; --cols:7; }
+  html,body{ margin:0; padding:0; background:#ffffff; }
+  body{
+    font-family:'Comic Sans MS','Comic Neue','Chalkboard SE','Segoe Print','Bradley Hand',cursive,sans-serif;
+    color:var(--ink); -webkit-user-select:none; user-select:none;
+    -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+  }
+  #app{ width:96vw; max-width:960px; margin:16px auto 40px; }
+  @media (min-width:720px){ #app{ width:80vw; } }
+  header{ display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  h1{ position:relative; display:inline-block; margin:0; font-size:clamp(22px,4.5vw,34px); letter-spacing:1px; }
+  h1::after{ content:''; position:absolute; left:2%; right:2%; bottom:-3px; height:3px; background:var(--ink); border-radius:2px; filter:url(#rough); }
+  .toolbar{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  button{ position:relative; font-family:inherit; color:var(--ink); background:transparent; border:none; padding:7px 16px; cursor:pointer; font-size:clamp(14px,2.6vw,17px); }
+  button::before{ content:''; position:absolute; inset:0; border:2.6px solid var(--ink); border-radius:13px 10px 12px 9px; filter:url(#rough); pointer-events:none; }
+  button:active{ transform:translateY(1px); }
+  #stats{ font-size:clamp(13px,2.6vw,16px); opacity:.75; }
 
+  #board{ position:relative; width:100%; }
+  #topRow,#tableau{ display:grid; grid-template-columns:repeat(var(--cols),var(--cw)); gap:var(--gap); justify-content:center; }
+  #tableau{ margin-top:calc(var(--ch)*0.34); align-items:start; }
+  .cell{ position:relative; height:var(--ch); }
+  .col{ position:relative; }
+
+  .card{ position:absolute; left:0; width:var(--cw); height:var(--ch); background:#fff; cursor:pointer; touch-action:none; }
+  .card.face{ cursor:grab; }
+  .cell .card{ top:0; }
+  .card::before{ content:''; position:absolute; inset:0; border:2.6px solid var(--ink); border-radius:11px 9px 12px 8px; filter:url(#rough); pointer-events:none; }
+  .card.red{ color:var(--red); }
+  .card.red::before{ border-color:var(--red); }
+  .card.face .corner{ position:absolute; top:calc(var(--cw)*0.05); left:calc(var(--cw)*0.09); display:flex; flex-direction:column; align-items:center; line-height:.9; }
+  .card .corner .r{ font-size:calc(var(--cw)*0.30); font-weight:bold; }
+  .card .corner .s{ font-size:calc(var(--cw)*0.26); }
+  .card .pip{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:calc(var(--cw)*0.52); }
+
+  .slot.empty, .recycle{ position:absolute; inset:0; top:0; width:var(--cw); height:var(--ch); border:2.6px dashed var(--dash); border-radius:11px 9px 12px 8px; filter:url(#rough); }
+  .recycle{ display:flex; align-items:center; justify-content:center; color:#a5a59d; font-size:calc(var(--cw)*0.5); }
+
+  .dragLayer{ position:fixed; left:0; top:0; pointer-events:none; z-index:9999; }
+  .dragLayer .card{ box-shadow:0 7px 16px rgba(0,0,0,.18); }
+
+  #win{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:rgba(255,255,255,.9); }
+  #win.hidden{ display:none; }
+  #win .msg{ font-size:clamp(30px,7vw,58px); color:var(--blue); }
+</style>
+</head>
+<body>
+  <h1>Choose a game:</h1>
+  <a href="https://paulsultana.com/games/solitaire">
+    <button>Solitaire</button>
+  </a>
+  <a href="https://paulsultana.com/games/spider">
+    <button>Spider</button>
+  </a>
+  <a href="https://paulsultana.com/games/freecell">
+    <button>FreeCell</button>
+  </a>
+</body>
