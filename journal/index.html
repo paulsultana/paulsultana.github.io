@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paul's Journal</title>
+  <link rel="icon" type="image/x-icon" href="https://paulsultana.com/assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f0e7d1;
+      --paper-hi: #f6efdd;
+      --paper-lo: #e7dcbe;
+      --ink: #2a2621;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Courier Prime", "Courier New", Courier, monospace;
+      font-size: 18px;
+      line-height: 1.7;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(150% 120% at 12% 8%, var(--paper-hi) 0%, transparent 55%),
+        radial-gradient(140% 130% at 92% 96%, var(--paper-lo) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: 2;
+      pointer-events: none; opacity: 0.55; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+    }
+
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: 3;
+      pointer-events: none; mix-blend-mode: multiply;
+      background: radial-gradient(125% 105% at 50% 42%, transparent 58%, rgba(120, 98, 62, 0.14) 100%);
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      max-width: 900px; margin: 0 auto;
+      padding: 96px 80px 120px;
+    }
+
+    .eyebrow { font-size: 0.75rem; letter-spacing: 0.3em; margin: 0 0 24px; opacity: 0.72; }
+    .masthead { margin: 0 0 56px; padding-bottom: 12px;  }
+    .masthead .eyebrow { margin: 0; font-weight: 700; }
+
+    h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; letter-spacing: 0.03em; margin: 0 0 24px; }
+    h2 { font-size: 1.5rem; font-weight: 700; margin: 52px 0 14px; }
+    h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.08em; margin: 34px 0 10px; }
+
+    p { margin: 0 0 22px; }
+    a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    strong { font-weight: 700; }
+    em { font-style: italic; }
+    code { font-family: inherit; padding: 0 0.3ch; background: rgba(42,38,33,0.08); }
+
+    ul { margin: 0 0 22px; padding-left: 0; list-style: none; }
+    li { position: relative; margin: 0 0 8px; padding-left: 2.4ch; }
+    li::before { content: "\2014"; position: absolute; left: 0; top: 0; }
+
+    blockquote { margin: 28px 0; padding-left: 20px; border-left: 2px solid rgba(42,38,33,0.35); font-style: italic; }
+    hr { border: 0; border-top: 1px dashed rgba(42,38,33,0.4); margin: 52px 0; }
+
+    .ink { display: inline-block; text-indent: 0; }
+    .word { display: inline-block; white-space: nowrap; text-indent: 0; }
+
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .page { padding: 44px 24px 64px; }
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.25rem; margin-top: 40px; }
+      h3 { font-size: 1.02rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="masthead">
+      <p class="eyebrow">Paul's Journal</p>   <!-- edit this line once; it's your blog's title -->
+    </header>
+    <div id="entries"></div>
+  </main>
+
+<!-- =====================================================================
+     WRITE HERE. This is the only part you touch.
+
+     To post: add a new entry at the TOP (newest first).
+       @ Memorandum · 29 July 2026   <- the date/time stamp (small caption)
+       # And Each Key Added...       <- the entry title (large header)
+       Your paragraphs go here, blank line between them.
+       ---                           <- ends the entry (draws a divider)
+
+     Also available:  ## and ### sub-headings, **bold**, *italic*,
+     `code`, [link text](https://example.com), - bullet lists, > quotes.
+
+     Save the file, refresh the page. Nothing else changes.
+     ===================================================================== -->
+<script type="text/markdown" id="posts">
+
+@ Journal Entry #1 · 29 July 2026
+# And Each Key Added To Your Key Ring
+
+This page writes itself from the text right here. The stamp above the title
+is the date line; the big header is the entry title. To publish, I add a new
+block at the top and refresh — the paper, the caps, and the uneven ink all
+stay put on their own.
+
+A blog is really just a stack of these, newest on top, each closed with a
+divider.
+
+</script>
+
+<!-- How to use:
+ Dividers are three dashes:
+ ---
+
+@ Memorandum · 28 July 2026
+# Older Posts Live Below
+
+Older entries simply sit further down the page, so the whole journal stays
+in one file with no build step and no database.
+
+I can still use **bold**, *italic*, and [links](https://wedos.global) when
+I want them, plus lists:
+
+- one thing worth noting
+- another thing
+- a third
+
+> And an aside, set off like this.
+
+---
+-->
+
+<script>
+  // --- tiny Markdown -> HTML (headings, paragraphs, lists, quotes, rules, inline) ---
+  function mdToHtml(md) {
+    md = md.replace(/\r\n?/g, "\n").trim();
+    var lines = md.split("\n"), html = "", i = 0, listOpen = false;
+
+    function esc(t){ return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+    function inline(t){
+      t = esc(t);
+      t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+      t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+      t = t.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+      t = t.replace(/`([^`]+)`/g, "<code>$1</code>");
+      return t;
+    }
+    function closeList(){ if (listOpen){ html += "</ul>"; listOpen = false; } }
+
+    while (i < lines.length) {
+      var t = lines[i].trim();
+
+      if (t === "") { closeList(); i++; continue; }
+      if (/^---+$/.test(t)) { closeList(); html += "<hr>"; i++; continue; }
+
+      var e = /^@\s+(.*)$/.exec(t);
+      if (e) { closeList(); html += '<p class="eyebrow">'+inline(e[1])+"</p>"; i++; continue; }
+
+      var h = /^(#{1,3})\s+(.*)$/.exec(t);
+      if (h) { closeList(); var lvl = h[1].length; html += "<h"+lvl+">"+inline(h[2])+"</h"+lvl+">"; i++; continue; }
+
+      if (/^>\s?/.test(t)) {
+        closeList();
+        var q = [];
+        while (i < lines.length && /^>\s?/.test(lines[i].trim())) { q.push(lines[i].trim().replace(/^>\s?/, "")); i++; }
+        html += "<blockquote>"+inline(q.join(" "))+"</blockquote>";
+        continue;
+      }
+
+      if (/^[-*]\s+/.test(t)) {
+        if (!listOpen) { html += "<ul>"; listOpen = true; }
+        html += "<li>"+inline(t.replace(/^[-*]\s+/, ""))+"</li>";
+        i++; continue;
+      }
+
+      closeList();
+      var para = [];
+      while (i < lines.length) {
+        var l = lines[i].trim();
+        if (l === "" || /^---+$/.test(l) || /^@\s+/.test(l) || /^#{1,3}\s/.test(l) || /^>\s?/.test(l) || /^[-*]\s+/.test(l)) break;
+        para.push(l); i++;
+      }
+      html += "<p>"+inline(para.join(" "))+"</p>";
+    }
+    closeList();
+    return html;
+  }
+
+  // render the posts into the page
+  document.getElementById("entries").innerHTML =
+    mdToHtml(document.getElementById("posts").textContent);
+
+  // --- give each character its own ink weight + tiny baseline wobble ---
+  (function () {
+    var SEL = "h1,h2,h3,p,li,blockquote,.eyebrow";
+    function inkify(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var parts = child.nodeValue.split(/(\s+)/), frag = document.createDocumentFragment();
+          parts.forEach(function (part) {
+            if (part === "") return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var word = document.createElement("span"); word.className = "word";
+            for (var k = 0; k < part.length; k++) {
+              var s = document.createElement("span"); s.className = "ink"; s.textContent = part[k];
+              var op = 0.82 + Math.random() * 0.18;
+              if (Math.random() < 0.14) op = 0.5 + Math.random() * 0.2;
+              var ty = (Math.random() * 1.1 - 0.55).toFixed(2);
+              var rot = (Math.random() * 1.3 - 0.65).toFixed(2);
+              s.style.opacity = op.toFixed(2);
+              s.style.transform = "translateY(" + ty + "px) rotate(" + rot + "deg)";
+              word.appendChild(s);
+            }
+            frag.appendChild(word);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) { inkify(child); }
+      });
+    }
+    var els = document.querySelectorAll(SEL);
+    for (var j = 0; j < els.length; j++) inkify(els[j]);
+  })();
+</script>
+</body>
+</html>
